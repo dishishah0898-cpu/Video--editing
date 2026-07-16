@@ -8,4 +8,5 @@ node_modules/
 
 # Rendered video outputs — regenerate with `npm run render`
 projects/bikereel/bikereel.mp4
+projects/bikereel/bikereel-web.mp4
 **/renders/
