@@ -1,0 +1,11 @@
+# Dependencies
+node_modules/
+
+# HyperFrames build artifacts (reproducible)
+**/snapshots/
+**/.hyperframes/
+**/work-*/
+
+# Rendered video outputs — regenerate with `npm run render`
+projects/bikereel/bikereel.mp4
+**/renders/
