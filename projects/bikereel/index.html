@@ -151,6 +151,124 @@
         background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.1) 30%, rgba(0, 0, 0, 0.1) 60%, rgba(0, 0, 0, 0.62));
       }
 
+      /* ---- Motion-graphics HUD ---- */
+      /* Viewfinder corner brackets */
+      .corner {
+        position: absolute;
+        width: 78px;
+        height: 78px;
+        border: 5px solid rgba(255, 196, 92, 0.85);
+        opacity: 0;
+      }
+      .corner.tl { top: 46px; left: 46px; border-right: none; border-bottom: none; }
+      .corner.tr { top: 46px; right: 46px; border-left: none; border-bottom: none; }
+      .corner.bl { bottom: 46px; left: 46px; border-right: none; border-top: none; }
+      .corner.br { bottom: 46px; right: 46px; border-left: none; border-top: none; }
+
+      /* Telemetry chip (top-left) */
+      #telemetry { position: absolute; top: 150px; left: 64px; }
+      #telemetry .tele-inner {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        opacity: 0;
+        padding: 14px 26px;
+        border-radius: 999px;
+        background: rgba(10, 12, 16, 0.44);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+      }
+      .tele-dot {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #ff5a4d;
+        box-shadow: 0 0 16px rgba(255, 90, 77, 0.9);
+      }
+      .tele-label {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #f7f4ee;
+      }
+      .tele-time {
+        font-size: 26px;
+        font-weight: 700;
+        color: #ffd77a;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.04em;
+      }
+
+      /* Route mini-map (top-right) */
+      #routemap { position: absolute; top: 150px; right: 64px; }
+      #routemap .rm-inner {
+        opacity: 0;
+        width: 240px;
+        padding: 18px 20px 12px;
+        border-radius: 22px;
+        background: rgba(10, 12, 16, 0.44);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+      }
+      #routemap .rm-title {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: rgba(247, 244, 238, 0.82);
+        margin-bottom: 6px;
+      }
+      #routemap svg { display: block; width: 100%; height: 120px; }
+      #routemap path {
+        fill: none;
+        stroke: #ffc45c;
+        stroke-width: 5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      #routemap .rm-pin { fill: #ffffff; opacity: 0; }
+
+      /* Stats HUD bar (bottom) */
+      #stats { position: absolute; left: 48px; right: 48px; bottom: 104px; }
+      #stats .st-inner {
+        opacity: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 34px;
+        border-radius: 26px;
+        background: linear-gradient(180deg, rgba(12, 14, 18, 0.5), rgba(12, 14, 18, 0.64));
+        border: 1px solid rgba(255, 255, 255, 0.14);
+      }
+      #stats .st-cell {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+      }
+      #stats .st-val {
+        font-size: 58px;
+        font-weight: 800;
+        color: #f7f4ee;
+        font-variant-numeric: tabular-nums;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+      #stats .st-val .u {
+        font-size: 27px;
+        font-weight: 700;
+        color: #ffd77a;
+        margin-left: 6px;
+      }
+      #stats .st-key {
+        margin-top: 14px;
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(247, 244, 238, 0.72);
+      }
+      #stats .st-div { width: 1px; height: 78px; background: rgba(255, 255, 255, 0.16); }
+
       /* ---- Progress line ---- */
       #progress {
         position: absolute;
@@ -282,6 +400,79 @@
         </div>
       </div>
 
+      <!-- Motion graphics: viewfinder corner brackets -->
+      <div
+        id="hud-corners"
+        class="clip"
+        style="position: absolute; inset: 0; pointer-events: none"
+        data-start="0.4"
+        data-duration="24.5"
+        data-track-index="3"
+      >
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+      </div>
+
+      <!-- Motion graphics: telemetry chip -->
+      <div
+        id="telemetry"
+        class="clip"
+        data-start="5.2"
+        data-duration="19.7"
+        data-track-index="6"
+      >
+        <div class="tele-inner">
+          <span class="tele-dot"></span>
+          <span class="tele-label">Tracking</span>
+          <span class="tele-time" id="tele-time">0:00</span>
+        </div>
+      </div>
+
+      <!-- Motion graphics: route mini-map -->
+      <div
+        id="routemap"
+        class="clip"
+        data-start="6.3"
+        data-duration="18.6"
+        data-track-index="7"
+      >
+        <div class="rm-inner">
+          <div class="rm-title">Route</div>
+          <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+            <path id="rm-path" d="M 12 98 C 44 98 46 44 78 46 S 120 96 150 76 S 180 30 190 22" />
+            <circle class="rm-pin" id="rm-pin" cx="190" cy="22" r="8" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Motion graphics: ride-stats HUD -->
+      <div
+        id="stats"
+        class="clip"
+        data-start="5.5"
+        data-duration="19.4"
+        data-track-index="8"
+      >
+        <div class="st-inner">
+          <div class="st-cell">
+            <div class="st-val"><span class="st-num" id="st-dist">0.0</span><span class="u">km</span></div>
+            <div class="st-key">Distance</div>
+          </div>
+          <div class="st-div"></div>
+          <div class="st-cell">
+            <div class="st-val"><span class="st-num" id="st-avg">0.0</span><span class="u">km/h</span></div>
+            <div class="st-key">Avg Speed</div>
+          </div>
+          <div class="st-div"></div>
+          <div class="st-cell">
+            <div class="st-val"><span class="st-num" id="st-elev">0</span><span class="u">m</span></div>
+            <div class="st-key">Elevation</div>
+          </div>
+        </div>
+      </div>
+
       <!-- Progress line (always-on) -->
       <div id="progress"></div>
     </div>
@@ -327,6 +518,97 @@
 
       // Progress line spans the whole piece
       tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 31.17, ease: "none", immediateRender: false }, 0);
+
+      // ---------- Motion graphics: ride telemetry HUD ----------
+      const HUD_OUT = 24.4; // everything clears before the closing card (25.2)
+
+      // Viewfinder corner brackets scale in, hold, fade out
+      gsap.set(".corner", { transformOrigin: "center center" });
+      tl.fromTo(
+        ".corner",
+        { autoAlpha: 0, scale: 0.4 },
+        { autoAlpha: 0.85, scale: 1, duration: 0.7, ease: "power3.out", stagger: 0.08, immediateRender: false },
+        0.5
+      );
+      tl.to(".corner", { autoAlpha: 0, duration: 0.5, ease: "power2.in" }, HUD_OUT);
+
+      // Telemetry chip: slide in, pulsing REC dot, live count-up timer
+      tl.fromTo(
+        "#telemetry .tele-inner",
+        { autoAlpha: 0, x: -30 },
+        { autoAlpha: 1, x: 0, duration: 0.6, ease: "power3.out", immediateRender: false },
+        5.3
+      );
+      tl.fromTo(
+        ".tele-dot",
+        { scale: 0.7, autoAlpha: 0.6 },
+        { scale: 1.15, autoAlpha: 1, duration: 0.7, ease: "sine.inOut", repeat: 12, yoyo: true, immediateRender: false },
+        5.6
+      );
+      const teleState = { v: 0 };
+      const teleEl = document.getElementById("tele-time");
+      tl.to(
+        teleState,
+        {
+          v: 19,
+          duration: 19,
+          ease: "none",
+          onUpdate: () => {
+            const s = Math.round(teleState.v);
+            teleEl.textContent = Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+          },
+        },
+        5.4
+      );
+      tl.to("#telemetry .tele-inner", { autoAlpha: 0, x: -20, duration: 0.5, ease: "power2.in" }, HUD_OUT);
+
+      // Route mini-map: panel in, path draws itself, pin drops
+      tl.fromTo(
+        "#routemap .rm-inner",
+        { autoAlpha: 0, y: -24 },
+        { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out", immediateRender: false },
+        6.4
+      );
+      const rmPath = document.getElementById("rm-path");
+      const rmLen = rmPath.getTotalLength();
+      rmPath.style.strokeDasharray = rmLen;
+      rmPath.style.strokeDashoffset = rmLen;
+      tl.to(rmPath, { strokeDashoffset: 0, duration: 1.5, ease: "power1.inOut" }, 6.9);
+      tl.fromTo(
+        "#rm-pin",
+        { autoAlpha: 0, scale: 0 },
+        { autoAlpha: 1, scale: 1, duration: 0.4, ease: "back.out(2)", transformOrigin: "center center", immediateRender: false },
+        8.3
+      );
+      tl.to("#routemap .rm-inner", { autoAlpha: 0, y: -20, duration: 0.5, ease: "power2.in" }, HUD_OUT);
+
+      // Ride-stats HUD: slide up, three synchronized count-ups (a chord)
+      tl.fromTo(
+        "#stats .st-inner",
+        { autoAlpha: 0, y: 60 },
+        { autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out", immediateRender: false },
+        5.6
+      );
+      function countUp(id, target, decimals, at) {
+        const o = { v: 0 };
+        const el = document.getElementById(id);
+        tl.to(
+          o,
+          {
+            v: target,
+            duration: 1.6,
+            ease: "power2.out",
+            onUpdate: () => {
+              el.textContent = decimals ? o.v.toFixed(decimals) : String(Math.round(o.v));
+            },
+          },
+          at
+        );
+      }
+      countUp("st-dist", 24.6, 1, 6.0);
+      countUp("st-avg", 28.4, 1, 6.0);
+      countUp("st-elev", 312, 0, 6.0);
+      tl.to("#stats .st-inner", { autoAlpha: 0, y: 40, duration: 0.5, ease: "power2.in" }, HUD_OUT);
 
       window.__timelines["main"] = tl;
     </script>
