@@ -38,6 +38,13 @@
       #ol-path { fill: none; stroke: var(--accent); stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px var(--accent)); }
       #ol-halo { fill: rgba(46,107,255,0.28); opacity: 0; }
       #ol-dot { fill: #eaf1ff; opacity: 0; filter: drop-shadow(0 0 8px var(--accent)) drop-shadow(0 0 20px var(--accentg)); }
+
+      /* Sketch / doodle layer */
+      #sketch { position: absolute; inset: 0; pointer-events: none; }
+      #sketch path { fill: none; stroke: var(--accent); stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 5px var(--accentg)); }
+      #sk-circle, #sk-shaft, #sk-head { stroke-width: 7; }
+      #sketch .spk { stroke-width: 5; }
+      #sk-note { position: absolute; left: 604px; top: 1636px; color: #6f9dff; font-weight: 800; font-size: 46px; letter-spacing: 0.01em; transform: rotate(-6deg); text-shadow: 0 3px 12px rgba(0,0,0,0.7); opacity: 0; white-space: nowrap; }
     </style>
   </head>
   <body>
@@ -59,6 +66,17 @@
         <circle id="ol-halo" r="34" cx="827" cy="1306" />
         <circle id="ol-dot" r="13" cx="827" cy="1306" />
       </svg>
+
+      <!-- Sketch / doodle layer -->
+      <svg id="sketch" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+        <path id="sk-circle" d="M 281.0 106.6 L 295.9 112.9 L 306.2 121.5 L 308.4 131.7 L 303.2 141.7 L 294.0 150.6 L 283.6 159.0 L 272.3 167.3 L 258.1 174.9 L 239.9 180.2 L 219.2 182.5 L 198.3 183.7 L 178.1 186.4 L 157.4 191.4 L 134.9 196.4 L 111.3 198.0 L 88.9 194.7 L 69.6 187.6 L 52.9 179.7 L 37.4 172.4 L 22.9 165.1 L 11.8 156.7 L 6.4 147.2 L 6.5 137.9 L 8.9 129.6 L 10.7 121.3 L 12.0 111.8 L 16.3 101.1 L 27.0 91.2 L 44.5 84.1 L 66.1 80.3 L 88.9 77.9 L 112.0 75.3 L 135.9 72.9 L 160.3 72.9" />
+        <path id="sk-shaft" d="M 880 1640 C 820 1560 760 1520 690 1486" />
+        <path id="sk-head" d="M 690 1486 L 726 1500 M 690 1486 L 706 1450" />
+        <path class="spk" d="M0 -13 L3.5 -3.5 L13 0 L3.5 3.5 L0 13 L-3.5 3.5 L-13 0 L-3.5 -3.5 Z" transform="translate(345 150)" />
+        <path class="spk" d="M0 -13 L3.5 -3.5 L13 0 L3.5 3.5 L0 13 L-3.5 3.5 L-13 0 L-3.5 -3.5 Z" transform="translate(915 1045) scale(1.4)" />
+        <path class="spk" d="M0 -13 L3.5 -3.5 L13 0 L3.5 3.5 L0 13 L-3.5 3.5 L-13 0 L-3.5 -3.5 Z" transform="translate(250 1585) scale(1.15)" />
+      </svg>
+      <div id="sk-note">run leg &#10003;</div>
 
       <!-- Strava-style stats header -->
       <div id="head">
@@ -111,6 +129,14 @@
       tl.to([dot, halo], { autoAlpha: 0, duration: 0.5, ease: "power2.in" }, 6.3);
       // finished line gives a gentle neon pulse
       tl.fromTo(ol, { opacity: 1 }, { opacity: 0.68, duration: 0.9, ease: "sine.inOut", repeat: 3, yoyo: true, immediateRender: false }, 3.5);
+
+      // Sketch doodles draw themselves on, like live annotation
+      function drawOn(el, at, dur){ const L = el.getTotalLength(); el.style.strokeDasharray = L; el.style.strokeDashoffset = L; tl.to(el, { strokeDashoffset: 0, duration: dur, ease: "power1.inOut" }, at); }
+      drawOn(document.getElementById("sk-circle"), 3.6, 0.8);
+      drawOn(document.getElementById("sk-shaft"), 4.6, 0.5);
+      drawOn(document.getElementById("sk-head"), 5.05, 0.3);
+      document.querySelectorAll("#sketch .spk").forEach((p, i) => drawOn(p, 4.3 + i * 0.28, 0.4));
+      tl.fromTo("#sk-note", { autoAlpha: 0, y: 16, rotate: -14 }, { autoAlpha: 1, y: 0, rotate: -6, duration: 0.5, ease: "back.out(1.6)", immediateRender: false }, 5.2);
 
       window.__timelines["main"] = tl;
     </script>
