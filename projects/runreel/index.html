@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=1080, height=1920" />
     <script src="vendor/gsap.min.js"></script>
     <style>
-      :root { --accent: #2e6bff; --accentg: rgba(46,107,255,0.9); }
+      :root { --accent: #c15a38; --accentg: rgba(193,90,56,0.9); --cream: #f2ece0; }
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
       body { font-family: "Inter", "Helvetica Neue", Arial, sans-serif; }
@@ -15,8 +15,8 @@
 
       /* STRAVA wordmark, sits BEHIND the subject cutout */
       #strava { position: absolute; left: 0; right: 0; top: 985px; text-align: center; white-space: nowrap;
-        font-size: 344px; font-weight: 900; letter-spacing: 26px; color: #f7f6f3;
-        text-shadow: 0 8px 50px rgba(0,0,0,0.55); opacity: 0; will-change: transform, opacity; }
+        font-size: 344px; font-weight: 900; letter-spacing: 26px; line-height: 0.9; color: var(--cream);
+        text-shadow: 0 8px 50px rgba(0,0,0,0.5); opacity: 0; will-change: transform, opacity; }
 
       .grade { position: absolute; inset: 0; pointer-events: none; }
       .grade-top { background: linear-gradient(180deg, rgba(0,0,0,0.72), rgba(0,0,0,0.2) 22%, rgba(0,0,0,0) 40%); }
@@ -28,21 +28,30 @@
       #head .col { display: flex; flex-direction: column; opacity: 0; will-change: transform, opacity; }
       #head .col.mid { align-items: center; }
       #head .col.end { align-items: flex-end; }
-      #head .lbl { font-size: 27px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255,255,255,0.82); margin-bottom: 4px; }
-      #head .val { font-size: 66px; font-weight: 800; letter-spacing: -0.01em; color: #ffffff; font-variant-numeric: tabular-nums; line-height: 1; text-shadow: 0 3px 18px rgba(0,0,0,0.6); }
-      #head .val .u { font-size: 34px; font-weight: 700; margin-left: 4px; color: rgba(255,255,255,0.7); }
+      #head .lbl { font-size: 27px; font-weight: 600; letter-spacing: 0.02em; color: rgba(242,236,224,0.82); margin-bottom: 4px; }
+      #head .val { font-size: 66px; font-weight: 800; letter-spacing: -0.01em; color: var(--cream); font-variant-numeric: tabular-nums; line-height: 1; text-shadow: 0 3px 18px rgba(0,0,0,0.6); }
+      #head .val .u { font-size: 34px; font-weight: 700; margin-left: 4px; color: rgba(242,236,224,0.7); }
       #head .tick { width: 48px; height: 4px; margin-top: 16px; border-radius: 2px; background: var(--accent); box-shadow: 0 0 10px var(--accentg); transform: scaleX(0); transform-origin: center center; }
 
       #outline { position: absolute; inset: 0; pointer-events: none; }
       #outline path { fill: none; stroke: var(--accent); stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 9px var(--accentg)); }
+
+      /* New Balance highlight callout */
+      #nbleader { position: absolute; inset: 0; pointer-events: none; }
+      #nbleader #nb-line { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; }
+      #nbleader #nb-dot { fill: var(--accent); opacity: 0; }
+      #nb-label { position: absolute; left: 742px; top: 1382px; opacity: 0; padding: 9px 18px; border-radius: 8px;
+        background: rgba(38,26,18,0.74); border: 1px solid var(--accentg);
+        font-size: 27px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream);
+        white-space: nowrap; will-change: transform, opacity; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="9" data-width="1080" data-height="1920">
       <div id="scene">
-        <img id="bg" src="shoes.jpg" alt="" />
+        <img id="bg" src="shoes_earthy.jpg" alt="" />
         <div id="strava">STRAVA</div>
-        <img id="fg" src="shoes_cutout.png" alt="" />
+        <img id="fg" src="shoes_cutout_earthy.png" alt="" />
       </div>
 
       <div class="grade grade-top"></div>
@@ -53,6 +62,13 @@
       <svg id="outline" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
         <path id="ol-path" d="M 827.2 1306.5 L 825.1 1357.0 L 800.3 1403.6 L 765.2 1443.6 L 736.6 1483.1 L 714.9 1526.9 L 686.1 1567.6 L 643.1 1593.7 L 594.7 1606.1 L 551.4 1617.8 L 512.8 1636.6 L 473.1 1656.1 L 430.3 1667.9 L 385.3 1673.2 L 336.8 1675.3 L 286.6 1667.4 L 244.2 1638.8 L 217.2 1591.5 L 198.5 1540.3 L 173.7 1494.8 L 141.7 1450.8 L 118.0 1400.6 L 113.4 1345.7 L 119.6 1292.4 L 122.4 1242.0 L 121.1 1191.8 L 125.6 1142.5 L 139.7 1096.3 L 158.0 1051.2 L 180.1 1005.4 L 214.6 967.1 L 265.7 949.2 L 324.1 952.2 L 378.3 959.5 L 427.4 956.7 L 477.3 949.1 L 528.2 951.8 L 575.1 968.9 L 617.8 990.4 L 660.8 1009.6 L 703.2 1031.4 L 738.9 1061.6 L 768.0 1098.1 L 797.8 1137.0 L 827.0 1180.9 L 840.0 1233.0 L 824.1 1288.8" />
       </svg>
+
+      <!-- New Balance highlight -->
+      <svg id="nbleader" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+        <path id="nb-line" d="M 618 1332 L 734 1392" />
+        <circle id="nb-dot" cx="618" cy="1332" r="10" />
+      </svg>
+      <div id="nb-label">New Balance</div>
 
       <!-- Strava-style stats header -->
       <div id="head">
@@ -84,6 +100,14 @@
       const olen = ol.getTotalLength();
       ol.style.strokeDasharray = olen; ol.style.strokeDashoffset = olen;
       tl.to(ol, { strokeDashoffset: 0, duration: 2.0, ease: "power1.inOut" }, 1.4);
+
+      // New Balance highlight: dot pings, leader line draws, label fades in
+      tl.fromTo("#nb-dot", { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: "back.out(2.4)", transformOrigin: "center center", immediateRender: false }, 3.0);
+      const nl = document.getElementById("nb-line");
+      const nlen = nl.getTotalLength();
+      nl.style.strokeDasharray = nlen; nl.style.strokeDashoffset = nlen;
+      tl.to(nl, { strokeDashoffset: 0, duration: 0.45, ease: "power2.out" }, 3.2);
+      tl.fromTo("#nb-label", { autoAlpha: 0, x: 16 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, 3.5);
 
       window.__timelines["main"] = tl;
     </script>
