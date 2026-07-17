@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=1080, height=1920" />
     <script src="vendor/gsap.min.js"></script>
     <style>
-      :root { --red: #e8110b; --redg: rgba(232,17,11,0.9); }
+      :root { --accent: #2e6bff; --accentg: rgba(46,107,255,0.9); }
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
       body { font-family: "Inter", "Helvetica Neue", Arial, sans-serif; }
@@ -30,12 +30,11 @@
       #head .col.end { align-items: flex-end; }
       #head .lbl { font-size: 27px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255,255,255,0.82); margin-bottom: 4px; }
       #head .val { font-size: 66px; font-weight: 800; letter-spacing: -0.01em; color: #ffffff; font-variant-numeric: tabular-nums; line-height: 1; text-shadow: 0 3px 18px rgba(0,0,0,0.6); }
-      #head .val .u { font-size: 34px; font-weight: 700; margin-left: 4px; }
+      #head .val .u { font-size: 34px; font-weight: 700; margin-left: 4px; color: rgba(255,255,255,0.7); }
+      #head .tick { width: 48px; height: 4px; margin-top: 16px; border-radius: 2px; background: var(--accent); box-shadow: 0 0 10px var(--accentg); transform: scaleX(0); transform-origin: center center; }
 
       #outline { position: absolute; inset: 0; pointer-events: none; }
-      #outline path { fill: none; stroke: var(--red); stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 8px var(--redg)); }
-
-      #progress { position: absolute; left: 0; bottom: 0; height: 8px; width: 100%; transform-origin: left center; transform: scaleX(0); background: var(--red); box-shadow: 0 -1px 14px var(--red); }
+      #outline path { fill: none; stroke: var(--accent); stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 9px var(--accentg)); }
     </style>
   </head>
   <body>
@@ -57,20 +56,15 @@
 
       <!-- Strava-style stats header -->
       <div id="head">
-        <div class="col"><span class="lbl">Distance</span><span class="val"><span id="v-dist">0.0</span><span class="u">km</span></span></div>
-        <div class="col mid"><span class="lbl">Pace</span><span class="val">6:00<span class="u">/km</span></span></div>
-        <div class="col end"><span class="lbl">Time</span><span class="val" id="v-time">0:00</span></div>
+        <div class="col"><span class="lbl">Distance</span><span class="val"><span id="v-dist">0.0</span><span class="u">km</span></span><span class="tick"></span></div>
+        <div class="col mid"><span class="lbl">Pace</span><span class="val">6:00<span class="u">/km</span></span><span class="tick"></span></div>
+        <div class="col end"><span class="lbl">Time</span><span class="val" id="v-time">0:00</span><span class="tick"></span></div>
       </div>
-
-      <div id="progress"></div>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
-
-      // Progress
-      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 9, ease: "none", immediateRender: false }, 0);
 
       // STRAVA wordmark reveals behind the subject
       tl.fromTo("#strava", { autoAlpha: 0, y: 40, scale: 1.1 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out", immediateRender: false }, 0.4);
@@ -81,6 +75,9 @@
       tl.to(dS, { v: 7.5, duration: 1.6, ease: "power2.out", onUpdate: () => { dE.textContent = dS.v.toFixed(1); } }, 0.9);
       const tS = { v: 0 }, tE = document.getElementById("v-time");
       tl.to(tS, { v: 2700, duration: 1.6, ease: "power2.out", onUpdate: () => { const s = Math.round(tS.v); tE.textContent = Math.floor(s/60) + ":" + String(s%60).padStart(2,"0"); } }, 0.9);
+
+      // Blue accent ticks wipe in under each stat
+      tl.fromTo("#head .tick", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out", stagger: 0.1, immediateRender: false }, 1.6);
 
       // Hand-drawn outline draws itself around the subject
       const ol = document.getElementById("ol-path");
