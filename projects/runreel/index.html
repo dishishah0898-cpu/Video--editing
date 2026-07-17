@@ -5,103 +5,61 @@
     <meta name="viewport" content="width=1080, height=1920" />
     <script src="vendor/gsap.min.js"></script>
     <style>
-      :root { --red: #e8110b; --redg: rgba(232, 17, 11, 0.85); --redlt: #ff5a4d; }
+      :root { --red: #e8110b; --redg: rgba(232,17,11,0.9); }
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
       body { font-family: "Inter", "Helvetica Neue", Arial, sans-serif; }
 
-      #shoes { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 60%; will-change: transform; }
+      #scene { position: absolute; inset: 0; }
+      #bg, #fg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+      /* STRAVA wordmark, sits BEHIND the subject cutout */
+      #strava { position: absolute; left: 0; right: 0; top: 985px; text-align: center; white-space: nowrap;
+        font-size: 344px; font-weight: 900; letter-spacing: 26px; color: #f7f6f3;
+        text-shadow: 0 8px 50px rgba(0,0,0,0.55); opacity: 0; will-change: transform, opacity; }
 
       .grade { position: absolute; inset: 0; pointer-events: none; }
-      .grade-top { background: linear-gradient(180deg, rgba(0,0,0,0.66), rgba(0,0,0,0.28) 26%, rgba(0,0,0,0) 48%); }
-      .grade-vignette { background: radial-gradient(ellipse 82% 70% at 50% 44%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%); }
-      .grade-grain {
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-        background-size: 300px 300px; opacity: 0.05; mix-blend-mode: overlay;
-      }
+      .grade-top { background: linear-gradient(180deg, rgba(0,0,0,0.72), rgba(0,0,0,0.2) 22%, rgba(0,0,0,0) 40%); }
+      .grade-vignette { background: radial-gradient(ellipse 84% 72% at 50% 46%, rgba(0,0,0,0) 52%, rgba(0,0,0,0.5) 100%); }
+      .grade-grain { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"); background-size: 300px 300px; opacity: 0.05; mix-blend-mode: overlay; }
 
-      /* HUD corners */
-      .corner { position: absolute; width: 82px; height: 82px; border: 5px solid var(--red); opacity: 0; box-shadow: 0 0 14px var(--redg); }
-      .corner.tl { top: 46px; left: 46px; border-right: none; border-bottom: none; }
-      .corner.tr { top: 46px; right: 46px; border-left: none; border-bottom: none; }
-      .corner.bl { bottom: 46px; left: 46px; border-right: none; border-top: none; }
-      .corner.br { bottom: 46px; right: 46px; border-left: none; border-top: none; }
+      /* Strava-style stats header */
+      #head { position: absolute; top: 118px; left: 56px; right: 56px; display: flex; justify-content: space-between; }
+      #head .col { display: flex; flex-direction: column; opacity: 0; will-change: transform, opacity; }
+      #head .col.mid { align-items: center; }
+      #head .col.end { align-items: flex-end; }
+      #head .lbl { font-size: 27px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255,255,255,0.82); margin-bottom: 4px; }
+      #head .val { font-size: 66px; font-weight: 800; letter-spacing: -0.01em; color: #ffffff; font-variant-numeric: tabular-nums; line-height: 1; text-shadow: 0 3px 18px rgba(0,0,0,0.6); }
+      #head .val .u { font-size: 34px; font-weight: 700; margin-left: 4px; }
 
-      /* Kicker */
-      #kicker { position: absolute; top: 150px; left: 64px; }
-      #kicker .k-inner { display: flex; align-items: center; gap: 16px; opacity: 0; padding: 14px 26px; border-radius: 999px; background: rgba(0,0,0,0.6); border: 1px solid var(--redg); }
-      .k-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--red); box-shadow: 0 0 16px var(--red); }
-      .k-label { font-size: 26px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #f4f4f2; }
-
-      /* Pace sparkline */
-      #pace { position: absolute; top: 150px; right: 64px; }
-      #pace .pc-inner { opacity: 0; width: 246px; padding: 16px 18px 14px; border-radius: 20px; background: rgba(0,0,0,0.74); border: 1px solid var(--redg); }
-      #pace .pc-title { font-size: 19px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,244,242,0.9); margin-bottom: 8px; display: flex; justify-content: space-between; }
-      #pace .pc-title b { color: #fff; }
-      #pace svg { display: block; width: 100%; height: 70px; }
-      #pace polyline { fill: none; stroke: var(--red); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px var(--redg)); }
-      #pace .pc-dot { fill: var(--red); opacity: 0; }
-
-      /* Hero distance */
-      #hero { position: absolute; left: 64px; right: 64px; top: 470px; display: flex; flex-direction: column; align-items: center; }
-      #hero .h-inner { opacity: 0; display: flex; flex-direction: column; align-items: center; padding: 44px 64px; border-radius: 30px; background: rgba(0,0,0,0.86); border: 1px solid rgba(232,17,11,0.4); box-shadow: 0 18px 60px rgba(0,0,0,0.5); }
-      #hero .h-label { font-size: 30px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--redlt); margin-bottom: 8px; }
-      #hero .h-val { font-size: 250px; line-height: 0.9; font-weight: 800; letter-spacing: -0.03em; color: #f6f6f4; font-variant-numeric: tabular-nums; text-shadow: 0 6px 40px rgba(0,0,0,0.6); }
-      #hero .h-unit { font-size: 84px; font-weight: 800; color: var(--redlt); margin-left: 12px; }
-
-      /* Stats row */
-      #stats { position: absolute; left: 56px; right: 56px; top: 1030px; }
-      #stats .st-inner { opacity: 0; display: flex; justify-content: space-between; align-items: center; padding: 30px 30px; border-radius: 24px; background: rgba(0,0,0,0.9); border: 1px solid var(--redg); }
-      #stats .st-cell { display: flex; flex-direction: column; align-items: center; flex: 1; }
-      #stats .st-val { font-size: 56px; font-weight: 800; color: #f6f6f4; font-variant-numeric: tabular-nums; line-height: 1; letter-spacing: -0.02em; text-shadow: 0 2px 12px rgba(0,0,0,0.6); }
-      #stats .st-val .u { font-size: 25px; font-weight: 700; color: var(--redlt); margin-left: 4px; text-shadow: none; }
-      #stats .st-key { margin-top: 12px; font-size: 22px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(246,246,244,0.72); }
-      #stats .st-div { width: 1px; height: 74px; background: var(--redg); }
+      #outline { position: absolute; inset: 0; pointer-events: none; }
+      #outline path { fill: none; stroke: var(--red); stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 8px var(--redg)); }
 
       #progress { position: absolute; left: 0; bottom: 0; height: 8px; width: 100%; transform-origin: left center; transform: scaleX(0); background: var(--red); box-shadow: 0 -1px 14px var(--red); }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="10" data-width="1080" data-height="1920">
-      <img id="shoes" src="shoes.jpg" alt="" />
+    <div id="root" data-composition-id="main" data-start="0" data-duration="9" data-width="1080" data-height="1920">
+      <div id="scene">
+        <img id="bg" src="shoes.jpg" alt="" />
+        <div id="strava">STRAVA</div>
+        <img id="fg" src="shoes_cutout.png" alt="" />
+      </div>
 
       <div class="grade grade-top"></div>
       <div class="grade grade-vignette"></div>
       <div class="grade grade-grain"></div>
 
-      <!-- Kicker -->
-      <div id="kicker" class="clip" data-start="0.5" data-duration="9.4" data-track-index="4">
-        <div class="k-inner"><span class="k-dot"></span><span class="k-label">Morning Run · 07:12 AM</span></div>
-      </div>
+      <!-- Hand-drawn outline around the subject -->
+      <svg id="outline" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+        <path id="ol-path" d="M 827.2 1306.5 L 825.1 1357.0 L 800.3 1403.6 L 765.2 1443.6 L 736.6 1483.1 L 714.9 1526.9 L 686.1 1567.6 L 643.1 1593.7 L 594.7 1606.1 L 551.4 1617.8 L 512.8 1636.6 L 473.1 1656.1 L 430.3 1667.9 L 385.3 1673.2 L 336.8 1675.3 L 286.6 1667.4 L 244.2 1638.8 L 217.2 1591.5 L 198.5 1540.3 L 173.7 1494.8 L 141.7 1450.8 L 118.0 1400.6 L 113.4 1345.7 L 119.6 1292.4 L 122.4 1242.0 L 121.1 1191.8 L 125.6 1142.5 L 139.7 1096.3 L 158.0 1051.2 L 180.1 1005.4 L 214.6 967.1 L 265.7 949.2 L 324.1 952.2 L 378.3 959.5 L 427.4 956.7 L 477.3 949.1 L 528.2 951.8 L 575.1 968.9 L 617.8 990.4 L 660.8 1009.6 L 703.2 1031.4 L 738.9 1061.6 L 768.0 1098.1 L 797.8 1137.0 L 827.0 1180.9 L 840.0 1233.0 L 824.1 1288.8" />
+      </svg>
 
-      <!-- Pace sparkline -->
-      <div id="pace" class="clip" data-start="4.4" data-duration="5.5" data-track-index="5">
-        <div class="pc-inner">
-          <div class="pc-title"><span>Pace / km</span><b>6:00</b></div>
-          <svg viewBox="0 0 214 70" xmlns="http://www.w3.org/2000/svg">
-            <polyline id="pc-line" points="" />
-            <circle class="pc-dot" id="pc-dot" cx="0" cy="0" r="6" />
-          </svg>
-        </div>
-      </div>
-
-      <!-- Hero distance -->
-      <div id="hero" class="clip" data-start="1.4" data-duration="8.5" data-track-index="6">
-        <div class="h-inner">
-          <div class="h-label">Distance</div>
-          <div><span class="h-val" id="h-dist">0.0</span><span class="h-unit">KM</span></div>
-        </div>
-      </div>
-
-      <!-- Stats row -->
-      <div id="stats" class="clip" data-start="3.2" data-duration="6.7" data-track-index="7">
-        <div class="st-inner">
-          <div class="st-cell"><div class="st-val"><span id="st-time">0:00</span></div><div class="st-key">Time</div></div>
-          <div class="st-div"></div>
-          <div class="st-cell"><div class="st-val"><span id="st-pace">6:00</span><span class="u">/km</span></div><div class="st-key">Avg Pace</div></div>
-          <div class="st-div"></div>
-          <div class="st-cell"><div class="st-val"><span id="st-cal">0</span><span class="u">kcal</span></div><div class="st-key">Calories</div></div>
-        </div>
+      <!-- Strava-style stats header -->
+      <div id="head">
+        <div class="col"><span class="lbl">Distance</span><span class="val"><span id="v-dist">0.0</span><span class="u">km</span></span></div>
+        <div class="col mid"><span class="lbl">Pace</span><span class="val">6:00<span class="u">/km</span></span></div>
+        <div class="col end"><span class="lbl">Time</span><span class="val" id="v-time">0:00</span></div>
       </div>
 
       <div id="progress"></div>
@@ -111,43 +69,24 @@
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
 
-      // Ken Burns on the shoes photo
-      tl.fromTo("#shoes", { scale: 1.0 }, { scale: 1.12, duration: 10, ease: "none", immediateRender: false }, 0);
-
       // Progress
-      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 10, ease: "none", immediateRender: false }, 0);
+      tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 9, ease: "none", immediateRender: false }, 0);
 
-      // Kicker
-      tl.fromTo("#kicker .k-inner", { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.55, ease: "back.out(1.5)", immediateRender: false }, 0.6);
-      tl.fromTo(".k-dot", { scale: 0.6, autoAlpha: 0.6 }, { scale: 1.2, autoAlpha: 1, duration: 0.6, ease: "sine.inOut", repeat: 12, yoyo: true, immediateRender: false }, 0.9);
+      // STRAVA wordmark reveals behind the subject
+      tl.fromTo("#strava", { autoAlpha: 0, y: 40, scale: 1.1 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out", immediateRender: false }, 0.4);
 
-      // Hero distance: plate in, big count-up
-      tl.fromTo("#hero .h-inner", { autoAlpha: 0, y: 40, scale: 0.9 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.7, ease: "back.out(1.5)", immediateRender: false }, 1.4);
-      const dState = { v: 0 }, dEl = document.getElementById("h-dist");
-      tl.to(dState, { v: 7.5, duration: 1.7, ease: "power2.out", onUpdate: () => { dEl.textContent = dState.v.toFixed(1); } }, 1.7);
-      tl.fromTo("#hero .h-unit", { autoAlpha: 0, x: 20 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: "back.out(2)", immediateRender: false }, 3.3);
+      // Stats header: columns rise in, values count up
+      tl.fromTo("#head .col", { autoAlpha: 0, y: -24 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.12, immediateRender: false }, 0.5);
+      const dS = { v: 0 }, dE = document.getElementById("v-dist");
+      tl.to(dS, { v: 7.5, duration: 1.6, ease: "power2.out", onUpdate: () => { dE.textContent = dS.v.toFixed(1); } }, 0.9);
+      const tS = { v: 0 }, tE = document.getElementById("v-time");
+      tl.to(tS, { v: 2700, duration: 1.6, ease: "power2.out", onUpdate: () => { const s = Math.round(tS.v); tE.textContent = Math.floor(s/60) + ":" + String(s%60).padStart(2,"0"); } }, 0.9);
 
-      // Stats row: reveal + count-ups
-      tl.fromTo("#stats .st-inner", { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: "back.out(1.3)", immediateRender: false }, 3.2);
-      const tState = { v: 0 }, tEl = document.getElementById("st-time");
-      tl.to(tState, { v: 2700, duration: 1.5, ease: "power2.out", onUpdate: () => { const s = Math.round(tState.v); tEl.textContent = Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); } }, 3.6);
-      const cState = { v: 0 }, cEl = document.getElementById("st-cal");
-      tl.to(cState, { v: 486, duration: 1.5, ease: "power2.out", onUpdate: () => { cEl.textContent = String(Math.round(cState.v)); } }, 3.6);
-
-      // Pace sparkline
-      const paces = [382, 366, 358, 361, 350, 372, 346];
-      const pmin = Math.min(...paces), pmax = Math.max(...paces);
-      const PW = 214, PH = 70, pad = 10;
-      const pts = paces.map((p, i) => [pad + (PW - 2 * pad) * (i / (paces.length - 1)), pad + (PH - 2 * pad) * ((p - pmin) / (pmax - pmin || 1))]);
-      const line = document.getElementById("pc-line");
-      line.setAttribute("points", pts.map(([x, y]) => x.toFixed(1) + "," + y.toFixed(1)).join(" "));
-      const last = pts[pts.length - 1], dotEl = document.getElementById("pc-dot");
-      dotEl.setAttribute("cx", last[0].toFixed(1)); dotEl.setAttribute("cy", last[1].toFixed(1));
-      const plen = line.getTotalLength();
-      line.style.strokeDasharray = plen; line.style.strokeDashoffset = plen;
-      tl.fromTo("#pace .pc-inner", { autoAlpha: 0, y: -24, x: 20 }, { autoAlpha: 1, y: 0, x: 0, duration: 0.55, ease: "back.out(1.5)", immediateRender: false }, 4.4);
-      tl.to(line, { strokeDashoffset: 0, duration: 1.4, ease: "power1.inOut" }, 4.9);
-      tl.fromTo("#pc-dot", { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: "back.out(2.4)", transformOrigin: "center center", immediateRender: false }, 6.2);
+      // Hand-drawn outline draws itself around the subject
+      const ol = document.getElementById("ol-path");
+      const olen = ol.getTotalLength();
+      ol.style.strokeDasharray = olen; ol.style.strokeDashoffset = olen;
+      tl.to(ol, { strokeDashoffset: 0, duration: 2.0, ease: "power1.inOut" }, 1.4);
 
       window.__timelines["main"] = tl;
     </script>
