@@ -17,7 +17,7 @@
       .grade-vignette { background: radial-gradient(ellipse 82% 70% at 50% 44%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%); }
       .grade-grain {
         background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-        background-size: 300px 300px; opacity: 0.09; mix-blend-mode: overlay;
+        background-size: 300px 300px; opacity: 0.05; mix-blend-mode: overlay;
       }
 
       /* HUD corners */
@@ -44,7 +44,7 @@
 
       /* Hero distance */
       #hero { position: absolute; left: 64px; right: 64px; top: 470px; display: flex; flex-direction: column; align-items: center; }
-      #hero .h-inner { opacity: 0; display: flex; flex-direction: column; align-items: center; padding: 40px 60px; border-radius: 34px; background: rgba(0,0,0,0.9); border: 1px solid rgba(232,17,11,0.6); box-shadow: 0 0 44px rgba(232,17,11,0.28); }
+      #hero .h-inner { opacity: 0; display: flex; flex-direction: column; align-items: center; padding: 44px 64px; border-radius: 30px; background: rgba(0,0,0,0.86); border: 1px solid rgba(232,17,11,0.4); box-shadow: 0 18px 60px rgba(0,0,0,0.5); }
       #hero .h-label { font-size: 30px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--redlt); margin-bottom: 8px; }
       #hero .h-val { font-size: 250px; line-height: 0.9; font-weight: 800; letter-spacing: -0.03em; color: #f6f6f4; font-variant-numeric: tabular-nums; text-shadow: 0 6px 40px rgba(0,0,0,0.6); }
       #hero .h-unit { font-size: 84px; font-weight: 800; color: var(--redlt); margin-left: 12px; }
@@ -68,11 +68,6 @@
       <div class="grade grade-top"></div>
       <div class="grade grade-vignette"></div>
       <div class="grade grade-grain"></div>
-
-      <!-- Corners -->
-      <div id="hud-corners" class="clip" style="position:absolute; inset:0; pointer-events:none" data-start="0.3" data-duration="9.6" data-track-index="3">
-        <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
-      </div>
 
       <!-- Kicker -->
       <div id="kicker" class="clip" data-start="0.5" data-duration="9.4" data-track-index="4">
@@ -121,10 +116,6 @@
 
       // Progress
       tl.fromTo("#progress", { scaleX: 0 }, { scaleX: 1, duration: 10, ease: "none", immediateRender: false }, 0);
-
-      // Corners
-      gsap.set(".corner", { transformOrigin: "center center" });
-      tl.fromTo(".corner", { autoAlpha: 0, scale: 0.3, rotate: -12 }, { autoAlpha: 1, scale: 1, rotate: 0, duration: 0.6, ease: "back.out(1.8)", stagger: 0.07, immediateRender: false }, 0.4);
 
       // Kicker
       tl.fromTo("#kicker .k-inner", { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.55, ease: "back.out(1.5)", immediateRender: false }, 0.6);
