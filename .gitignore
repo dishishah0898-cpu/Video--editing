@@ -6,3 +6,7 @@ projects/*/.hyperframes/
 projects/run-reel/seg/
 projects/run-reel/frames/
 projects/*/frames/
+
+# Scratch/staging dirs for media prep (intermediate; not part of a HyperFrames project)
+projects/run-reel/
+projects/bike-reel/
