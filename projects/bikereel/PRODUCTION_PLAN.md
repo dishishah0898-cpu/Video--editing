@@ -1,10 +1,11 @@
-# Bicycle Hero Film — Production Plan
+# Bicycle Film — Production Plan (Reference-Matched)
 
 **Subject:** Scott Speedster road bike (user-supplied photograph)
-**Target style:** High-contrast monochrome subject on a perfectly flat `#FFD400` yellow field — premium studio / commercial advertising aesthetic
-**Deliverable:** Cinematic vertical/landscape product film (this plan defines everything required *before* any frame is rendered)
+**Reference:** @fahmiiafr Instagram carousel (slide 2/5) — a black-&-white minimalist bike photograph
+**Target style:** Soft greyscale / black-&-white, bike centered against a light-grey wall on a tiled floor, natural window light, moody-minimalist mood
+**Deliverable:** Cinematic product film animating the user's bike into the reference's still-photo aesthetic (this plan defines everything required *before* any frame is rendered)
 
-> **Note on the reference video.** The brief refers to a reference video/link, but no reference file or URL was received on my side — only the bicycle photograph. Section 2 is therefore written as a **reverse-engineered target-style specification** built from the written brief (monochrome subject, flat `#FFD400` background, studio-commercial language). When the actual reference clip is supplied, Section 2 will be re-done as a true frame-by-frame breakdown and the rest of the plan reconciled against it. Everything else in this plan is anchored to your uploaded image and needs no reference to proceed.
+> **Direction confirmed by user:** *Match the reference.* The earlier `#FFD400` yellow / high-contrast studio-commercial concept is **dropped**. The reference is a still image (a composition-tips slide, caption *"posisikan objek tepat di tengah"* — "position the object exactly in the center"), so there is no motion to extract frame-by-frame; it defines a **look and composition** that the animated camera will live inside.
 
 ---
 
@@ -13,103 +14,99 @@
 Every downstream decision preserves what is observed here. This is the reference the final render is graded against in QC (Section 7).
 
 ### 1.1 Identification & geometry
-- **Model:** Scott Speedster — aluminium (alloy) road frame, **compact/sloping geometry** (sloping top tube, taller head tube than a pure race frame).
-- **Frame silhouette:** Traditional double-diamond road frameset; drop handlebars; 700c wheels. Wheelbase and stack/reach proportions must be locked and never restyled.
-- **View captured:** Near-perpendicular **drive-side (right-side) profile**, camera roughly at hub height / very slightly below center, standard focal length (~35–50 mm equivalent) with mild natural perspective — front wheel marginally larger in frame than rear. The bike leans a few degrees, resting against the wall (top of frame away from camera, wheels toward camera).
+- **Model:** Scott Speedster — aluminium (alloy) road frame, **compact/sloping geometry** (sloping top tube, taller head tube).
+- **Frame silhouette:** Traditional double-diamond road frameset; drop handlebars; 700c wheels. Wheelbase and stack/reach proportions are locked and never restyled.
+- **View captured:** Near-perpendicular **drive-side (right) profile**, camera roughly at hub height / very slightly below center, standard focal length (~35–50 mm equivalent), mild natural perspective — front wheel marginally larger in frame than rear. Bike leans a few degrees against the wall.
 
-### 1.2 Colours & materials
-- **Frame:** Anthracite / graphite **grey**, semi-matte alloy finish, with a **red gradient accent** flowing along the top tube and down tube.
-- **Decals:** White **"SCOTT"** wordmark on the down tube; **"SPEEDSTER"** text on the top tube; red/black graphic detailing. Small "SCOTT" mark near the head tube/fork.
-- **Fork:** Grey, matching frame family.
-- **Components:** Compact double crankset, drive-side rear derailleur visible, rim (caliper) brakes, black brake/shift levers.
-- **Wheels:** **Mavic** (Aksium-type) — black rims with white **"MAVIC"** rim decals, bladed/paired spokes.
-- **Tyres:** **Continental Gatorskin** 700c, black with tan-free black sidewall and white **"GATORSKIN / Continental"** sidewall lettering.
-- **Saddle:** Scott saddle with a **yellow-green accent** flash.
+### 1.2 Colours & materials (retained as tonal cues once desaturated)
+- **Frame:** Anthracite/graphite grey semi-matte alloy with a **red gradient accent** on top/down tubes.
+- **Decals:** White **"SCOTT"** on the down tube; **"SPEEDSTER"** on the top tube; red/black graphic detailing; small "SCOTT" near head tube/fork.
+- **Components:** Compact double crankset, drive-side rear derailleur, rim (caliper) brakes, black brake/shift levers.
+- **Wheels:** **Mavic** (Aksium-type) — black rims, white **"MAVIC"** decals, bladed/paired spokes.
+- **Tyres:** **Continental Gatorskin** 700c, black sidewall, white **"GATORSKIN / Continental"** lettering.
+- **Saddle:** Scott saddle with a yellow-green accent flash (reads as a light-grey tone in B&W).
 - **Cockpit:** Black bar tape on drop bars.
 - **Accessory:** Bottle cage + translucent water bottle (blue cap) on the down tube.
 
 ### 1.3 Lighting, camera & perspective (as shot)
-- **Lighting:** Soft, diffuse **overcast daylight** — low-contrast, gentle wraparound shadows, no hard speculars. (This is the *opposite* of the target look and is what the lighting/colour plan will transform.)
-- **Background (original):** Cream textured concrete wall with a horizontal seam; interlocking grey-paver + red-brick ground. This is fully replaced by the flat yellow field.
-- **Angle/perspective:** Eye-level-to-low profile, minimal lens distortion, subject centered.
+- **Lighting:** Soft, diffuse **overcast daylight** — low-contrast, gentle wraparound shadow. This is *close* to the reference mood and needs only gentle shaping, not a hard studio relight.
+- **Angle:** Eye-level-to-low profile, minimal distortion, subject centered.
 
 ### 1.4 How these details are preserved throughout the video
-- The uploaded photo is the **single geometric master**. The subject is isolated (background removed) and every camera move is executed as a **virtual camera over the real bike silhouette**, so proportions, part positions, and decal placement can never drift.
-- A **QC overlay** (Section 7) diffs each keyframe against the source silhouette for outline, wheel size ratio, and decal position.
-- No generative in-painting of components. Only **cropping, matting, camera transform, relight, and grade** are applied — nothing is invented, added, or removed.
+- The uploaded photo is the **single geometric master**. The subject is isolated and every camera move is a **virtual camera over the real bike silhouette** — proportions, part positions, and decal placement never drift.
+- A **QC overlay** (Section 7) diffs each keyframe against the source silhouette for outline, wheel-size ratio, and decal position.
+- No generative in-painting of components. Only **cropping, matting, camera transform, gentle relight, and B&W grade** are applied — nothing is invented, added, or removed.
 
 ---
 
-## 2. Reference Style Analysis (target-style specification)
+## 2. Reference Style Analysis (@fahmiiafr slide 2/5)
 
-*Reverse-engineered from the written brief until the real reference clip is supplied.*
+*The reference is a still photograph, so "frame-by-frame" reads here as a full still-frame breakdown of the look the video must reproduce.*
 
-- **Colour grading:** High-contrast **monochrome** subject — the bike rendered as graphite-to-silver greyscale with deep blacks and bright metallic highlights. **Zero** colour retained in the subject except natural metallic tonal response.
-- **Background:** A single, perfectly uniform **`#FFD400`** yellow field — no gradient, no vignette, no texture, no noise. Flat, poster-like, absolute.
-- **Lighting direction:** Studio key from upper-front, crisp rim/edge separation, controlled falloff — the subject reads as lit in a blacked-out cyclorama, not outdoors.
-- **Composition:** Subject centered or on a clean rule-of-thirds anchor with generous negative yellow space; strong figure-ground separation from the flat background.
-- **Transitions:** Minimal and premium — hard cuts on motion, occasional match-cut on the wheel/orbit, and slow cross-dissolves only between hero holds. No flashy wipes.
-- **Camera movement:** Slow, deliberate, weighted — push-ins, pull-outs, orbits, and macro slides with eased starts/stops. Everything feels motorized/gimbal-smooth.
-- **Pacing:** Confident and unhurried — longer holds on hero frames, quicker cadence on detail montage, resolving to a locked hero card.
-- **Visual language:** Luxury automotive/product-commercial grammar — the object as sculpture, monochrome subject vs. saturated brand-colour ground, macro fetishization of materials, negative space as design.
-
-**When the real reference arrives**, this section becomes: per-shot timecodes, measured grade values (lift/gamma/gain), exact background hex sampled from frames, measured move durations and ease curves, and cut rhythm — and Sections 3–6 are reconciled to match.
+- **Colour treatment:** Full **black & white / greyscale**. Soft, filmic tonal curve — mid-grey wall, darker bike, no crushed blacks or blown highlights. Understated, not high-contrast.
+- **Background / environment:** A plain **light-grey painted wall** meeting a **large-format tiled floor** (square tiles, faint grout lines, slightly reflective/wet sheen with soft floor reflections and scuff marks). A real room, not a seamless studio sweep. Subtle top-to-bottom luminance falloff (wall slightly brighter mid-height, floor a touch darker with texture).
+- **Lighting direction:** **Soft, natural, diffuse** — light appears to come from a large window/overcast source, gentle and near-frontal-left. Low-contrast, soft wraparound shadow beneath the bike; no hard speculars, no rim/kicker.
+- **Composition:** **Subject dead-center**, generous negative space above (wall) and below (floor). Classic centered rule — the slide's whole point is *center the object*. Bike occupies the middle third; wall fills the top ~55%, floor the bottom ~45%.
+- **Camera / framing:** Straight-on **perpendicular profile**, level horizon, no tilt, standard lens (~35–50 mm), no visible distortion. Bike leans against the wall, drive side out.
+- **Mood / pacing:** Calm, minimalist, lo-fi (soundtrack *Bay Ledges — Early 90s*). If animated, this implies **slow, gentle, unhurried** motion and long holds — the opposite of punchy commercial cutting.
+- **Visual language:** Quiet, editorial, "everyday object made beautiful through simplicity" — negative space, symmetry/centering, muted monochrome, natural texture. Understated and intimate, not glossy.
 
 ---
 
 ## 3. Scene Breakdown (shot list)
 
-Target length **~20 s**, 9 shots. Durations tuned for a premium, unhurried cadence. (16:9 or 9:16 both supported by the same choreography; framing values below assume the hero canvas.)
+Target length **~18–20 s**, 7 shots. Cadence is **slow and gentle** to match the reference's calm mood. Canvas can be 9:16 (matches the reference's vertical IG frame) or 16:9 — same choreography.
 
 | # | Shot | Camera position | Camera movement | Lens style | Subject framing | Lighting | Duration | Transition out |
 |---|------|-----------------|-----------------|------------|-----------------|----------|----------|----------------|
-| 1 | Reveal | Front-3/4, low | Slow **push-in** from wide | 35mm, shallow-ish | Full bike, generous yellow negative space | Key upper-front, soft rim | 3.0s | Hard cut on move |
-| 2 | Profile hero | Perpendicular drive-side | Locked, subtle **parallax drift** | 50mm | Full-bike centered, classic profile | Balanced key + rim | 2.5s | Match-cut to wheel |
-| 3 | Front wheel macro | Close on hub/rim | **Orbit** around hub, slow | 90mm macro | Mavic decal, spokes, Gatorskin lettering | Hard rim raking spokes | 2.0s | Cut |
-| 4 | Drivetrain detail | Low, on crankset | **Slider push** along down tube | 90mm macro | Crankset + derailleur | Top key, deep shadow | 2.0s | Cut |
-| 5 | Decal detail | Close on down tube | **Lateral slide** across "SCOTT" | 60mm | SCOTT wordmark, red-grey gradient tonality | Grazing key for texture | 1.5s | Whip/cut |
-| 6 | Saddle & cockpit | High-3/4 | **Pull-out** revealing lines | 50mm | Saddle → top tube leading lines | Soft key, gentle rim | 2.0s | Cross-dissolve |
-| 7 | Full orbit hero | Mid, hub height | **180° orbit** around whole bike | 40mm | Full bike, rotating | Rotating rim tracks motion | 3.5s | Cut on motion |
-| 8 | Rear wheel pull | Rear-3/4 | **Pull-out** to full | 50mm | Rear wheel → full frame | Rim highlight on rim edge | 2.0s | Slow dissolve |
-| 9 | Hero lock / logo card | Perpendicular profile | **Locked**, breathing scale | 50mm | Full bike, centered, space for logo/type | Full studio key + rim | 2.5s | End |
+| 1 | Establishing | Perpendicular profile, level | **Slow push-in** from wide | 35mm | Full bike centered, wall above / tiled floor below | Soft natural key, gentle floor shadow | 3.5s | Slow cross-dissolve |
+| 2 | Hero hold | Perpendicular profile | Locked, faint **breathing scale** | 50mm | Centered hero — the reference frame itself | Soft near-frontal-left | 3.0s | Soft dissolve |
+| 3 | Drivetrain detail | Low, on crankset | **Slow lateral slide** | 90mm macro | Crankset + derailleur, shallow DOF | Soft grazing daylight | 2.5s | Gentle cut |
+| 4 | Decal detail | Close on down tube | **Slow slide** across "SCOTT" | 60mm | SCOTT wordmark, frame texture in greyscale | Soft frontal | 2.0s | Gentle cut |
+| 5 | Front wheel | Close on hub/rim | **Slow orbit** around hub | 90mm macro | Mavic decal, spokes, Gatorskin lettering | Soft daylight raking spokes | 2.5s | Soft dissolve |
+| 6 | Slow reveal orbit | Mid, hub height | Gentle **~30° drift orbit** | 40mm | Full bike, slight parallax against wall/floor | Soft, shifting softly with angle | 3.0s | Cross-dissolve |
+| 7 | Final centered hold | Perpendicular profile | Locked, settle to rest | 50mm | Reference composition, space for optional caption | Soft natural key | 3.0s | End |
 
-**Total ≈ 21 s.**
+**Total ≈ 19.5 s.**
+
+> **Restraint note:** No hard cuts on action, no whips, no snap zooms. Transitions are soft dissolves and gentle cuts only — the reference mood is quiet.
 
 ---
 
 ## 4. Animation Plan
 
-- **What moves:** The **virtual camera moves; the bicycle stays geometrically fixed** as the master silhouette (except Shot 7, a true subject/camera orbit). This guarantees zero proportion drift — the bike is never re-drawn per frame, only re-viewed.
+- **What moves:** The **virtual camera moves; the bicycle stays geometrically fixed** as the master silhouette (except Shot 6, a gentle true orbit). Guarantees zero proportion drift.
 - **Move vocabulary & where used:**
-  - **Slow push-ins** — Shot 1 (reveal), Shot 9 (breathing hold).
-  - **Pull-outs** — Shot 6 (cockpit), Shot 8 (rear wheel).
-  - **Macro detail slides** — Shots 3, 4, 5 (hub, drivetrain, decal).
-  - **Orbit shots** — Shot 3 (hub orbit), Shot 7 (full 180° hero orbit).
-  - **Hero shots** — Shots 2 and 9 (locked profile with subtle parallax/scale "breathing").
-- **Smoothness / cinematics:** Every move uses eased in/out curves (GSAP `power2`/`power3.inOut`, ~0.2–0.4 s ramps), gimbal-weighted — no linear ramps, no snap. Holds bracket each move so the eye settles. Motion blur consistent with move speed to sell realism.
-- **Depth:** Subtle rack-focus / shallow-DOF cues on macro shots to draw the eye to the featured component while keeping the subject unaltered.
+  - **Slow push-in** — Shot 1 (establishing).
+  - **Hero holds with faint breathing scale** — Shots 2 and 7.
+  - **Macro detail slides** — Shots 3, 4 (drivetrain, decal).
+  - **Slow orbits** — Shot 5 (hub), Shot 6 (gentle ~30° reveal).
+- **Smoothness / cinematics:** Every move uses long eased in/out curves (GSAP `power2`/`power3.inOut`, ~0.4–0.6 s ramps), slow and weighted — no linear ramps, no snap. Generous holds bracket each move. Motion blur kept light to match slow speeds.
+- **Environment coherence:** As the camera drifts (Shot 6), the wall/floor and the soft floor shadow shift naturally with the bike so the room stays believable.
+- **Depth:** Subtle shallow-DOF on macro shots to lead the eye, subject itself never altered.
 
 ---
 
-## 5. Lighting Plan (studio recreation)
+## 5. Lighting Plan (natural-light recreation)
 
-Goal: convert the flat overcast source into a controlled **blacked-out studio** look, premium and commercial.
+Goal: reproduce the reference's **soft, natural, window-lit** feel — *not* a hard studio look.
 
-- **Key light:** Large soft source **upper-front, ~30–45° camera-side**, shaping the frame's top surfaces and driving the primary highlight roll-off on the grey tubes.
-- **Fill light:** Low-intensity fill opposite key to lift shadow detail just enough to keep metallic texture legible — high key-to-fill ratio to preserve high contrast.
-- **Rim / edge light:** Hard back/kicker light to draw a bright separation edge along the frame tubes, wheel arcs, and saddle — the signature that lifts the subject off the yellow.
-- **Highlights:** Controlled speculars on rims, crankset, and polished parts — bright but not clipped; they read as metal, not blown white.
-- **Shadow placement:** Contact/ground shadow kept minimal and soft (or omitted for a pure floating-object look) so the flat yellow stays uninterrupted. Core shadows deepened for contrast.
-- **Aesthetic guardrail:** No colored gels bleeding onto the subject (subject stays neutral monochrome); no lens flares; controlled, expensive, restrained.
+- **Key light:** Large **soft, diffuse source, near-frontal and slightly camera-left**, low intensity — mimics an overcast window. Gentle roll-off across the frame tubes.
+- **Fill:** High ambient fill (soft, low contrast) so shadows stay open and grey — the reference has no deep blacks.
+- **Rim / kicker:** **None** (or a whisper). The reference deliberately avoids hard separation edges; the bike reads as a soft dark shape against the light wall.
+- **Highlights:** Soft, restrained speculars on rims/crankset — present but muted, never clipped.
+- **Shadow placement:** **Soft contact shadow** pooling gently beneath the bike on the tiled floor, with faint floor reflection — this grounds the bike exactly like the reference. No dramatic cast shadows.
+- **Aesthetic guardrail:** Soft, natural, understated. No gels, no flares, no hard studio speculars.
 
 ---
 
 ## 6. Colour Treatment
 
-- **Monochrome conversion:** Desaturate the subject to greyscale, then apply a **high-contrast tone curve** — crushed blacks, bright controlled highlights, extended mid-tone separation so tube gradients, decals, and spoke detail stay readable.
-- **Metallic realism preserved:** Contrast is driven by **luminance**, not flattening — anodized alloy sheen, rim reflectivity, and tyre matte-vs-frame-semi-matte differences are kept as tonal cues. Decal edges (SCOTT / SPEEDSTER / MAVIC / GATORSKIN) stay crisp in greyscale.
-- **Background:** Composited **`#FFD400`** as a solid fill on its own layer *behind* the matted subject. Enforced **perfectly flat** — no gradient, banding, vignette, or grain. If any output grain is added for filmic texture, it is applied to the **subject layer only**, never the background.
-- **Consistency:** One master grade node applied identically to every shot so the monochrome and yellow read the same frame-to-frame; background hex validated per frame in QC.
+- **Black & white conversion:** Desaturate to full greyscale with a **soft, filmic tone curve** — mid-grey wall, darker bike body, open shadows, gentle highlight roll-off. **Low-to-moderate contrast**, matching the reference (not the earlier high-contrast idea).
+- **Metallic realism preserved:** Contrast is driven by **luminance**, so anodized alloy sheen, rim reflectivity, and tyre-vs-frame texture survive as tonal cues. Decal edges (SCOTT / SPEEDSTER / MAVIC / GATORSKIN) stay crisp in greyscale.
+- **Environment (background):** A **light-grey wall + large tiled floor**, reproduced in greyscale with faint grout lines, slight floor sheen/reflection, and gentle top-to-bottom luminance falloff — a real room, matching the reference. **No flat colour fill, no yellow.**
+- **Consistency:** One master B&W grade node applied identically to every shot so tonality reads the same frame-to-frame; wall/floor luminance validated per frame in QC.
+- **Optional finish:** Very light film grain across the whole frame (subject *and* environment together) for the reference's understated filmic texture — subtle, uniform, not a stylistic effect.
 
 ---
 
@@ -119,29 +116,31 @@ Rendering does not start until **all** pass:
 
 - [ ] **Bicycle matches uploaded image exactly** — silhouette diff vs. source within tolerance.
 - [ ] **No components added, removed, or altered** — crankset, derailleur, brakes, cage/bottle, saddle, wheels all present and unmodified.
-- [ ] **Logos & decals accurate** — SCOTT, SPEEDSTER, MAVIC, GATORSKIN present, correctly placed, legible.
+- [ ] **Logos & decals accurate** — SCOTT, SPEEDSTER, MAVIC, GATORSKIN present, correctly placed, legible in greyscale.
 - [ ] **Proportions unchanged** — wheel-diameter ratio, wheelbase, tube angles match source; no stretch/warp from camera moves.
-- [ ] **Monochrome consistent** — same grade across all 9 shots; no colour leak into the subject.
-- [ ] **Yellow background perfectly uniform** — every frame samples `#FFD400`; no gradient/banding/vignette/noise on the background layer.
-- [ ] **Commercial-grade realism every frame** — lighting, speculars, and edges read as a real studio capture; no CG "plastic" look, no matte fringing on edges.
+- [ ] **B&W treatment consistent** — same soft greyscale grade across all 7 shots; no colour leak.
+- [ ] **Environment matches reference** — light-grey wall + tiled floor, soft floor shadow/reflection, natural luminance falloff; uniform and believable across frames.
+- [ ] **Composition centered** — hero frames keep the subject centered per the reference's core rule.
+- [ ] **Mood correct** — soft natural light, no hard studio rim/speculars, slow gentle motion.
+- [ ] **Every frame photoreal** — reads as a real B&W photograph, no CG "plastic" look, no matte fringing on edges.
 
-Automated checks: per-frame background hex sampler, silhouette IoU vs. source, edge-fringe detector on the matte, and a contrast/consistency check across shots.
+Automated checks: per-frame wall/floor luminance sampler, silhouette IoU vs. source, edge-fringe detector on the matte, and a tonal-consistency check across shots.
 
 ---
 
 ## 8. Final Production Workflow (end-to-end)
 
 1. **Image analysis** — Lock the uploaded photo as geometric master; catalog geometry, colours, materials, decals, components, lighting, angle (Section 1).
-2. **Style extraction** — Codify the target look: monochrome high-contrast subject, flat `#FFD400` ground, studio lighting grammar (Section 2). *Re-derive from the real reference clip once supplied.*
-3. **Scene planning** — Finalize the 9-shot list with framing, duration, and transitions (Section 3).
-4. **Camera choreography** — Author eased virtual-camera moves (push/pull/orbit/macro/hero) over the fixed subject (Section 4).
-5. **Lighting setup** — Recreate key/fill/rim, highlights, and shadow placement for the blacked-out studio look (Section 5).
-6. **Colour grading** — Apply the monochrome high-contrast grade to the subject; composite the flat yellow background; preserve metallic texture (Section 6).
-7. **Animation** — Assemble shots on the timeline with smooth motion, holds, transitions, and consistent motion blur.
-8. **Rendering** — Render only after the QC gate passes; consistent codec/frame rate; background layer protected from grain.
+2. **Style extraction** — Codify the reference look: soft greyscale, grey wall + tiled floor, natural light, centered minimalist composition (Section 2).
+3. **Scene planning** — Finalize the 7-shot list with framing, duration, and soft transitions (Section 3).
+4. **Camera choreography** — Author slow, eased virtual-camera moves (push/hold/orbit/macro) over the fixed subject (Section 4).
+5. **Lighting setup** — Recreate the soft natural window light, open shadows, and gentle floor contact shadow (Section 5).
+6. **Colour grading** — Apply the soft B&W grade to subject + environment; preserve metallic texture; optional uniform grain (Section 6).
+7. **Animation** — Assemble shots on the timeline with slow motion, long holds, and soft dissolves.
+8. **Rendering** — Render only after the QC gate passes; consistent codec/frame rate.
 9. **Final quality assurance** — Run the full Section 7 checklist on the rendered file (not just the timeline); fix and re-render any failing frame before delivery.
 
 ---
 
 ### Next step
-Approve this plan (or share the actual reference video so Section 2 can be rebuilt as a true frame-by-frame analysis and Sections 3–6 reconciled to it). **No video will be generated until you approve.**
+Approve this reference-matched plan and I'll build the video. **No video will be generated until you approve.** Open options if you want to tweak first: aspect ratio (9:16 to match the reference vs 16:9), length (~20 s default), and whether to include an optional centered caption like the reference's on the final hold.
