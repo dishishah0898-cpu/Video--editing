@@ -2,7 +2,7 @@
 workflow: general-video
 flow: automation
 storyboard: no
-message: "A real Ironman training day, cut like a race broadcast"
+message: "A real Ironman 70.3 training day, cut like a race broadcast"
 destination: instagram-reels
 aspect: 1080x1920
 language: en
@@ -14,7 +14,8 @@ angle: montage
 
 An aesthetic recut of an existing 33s phone montage from one training day, for
 the athlete's own Instagram page. She asked for smooth transitions, motion
-graphics, and an Ironman logo. The feel is disciplined and premium — a race
+graphics, and an Ironman logo. The race is the half distance — IRONMAN 70.3,
+not the full 140.6. The feel is disciplined and premium — a race
 broadcast's restraint (chapter marks, a status chip, a progress rail) wrapped
 around footage that is honestly just a woman training hard in a gym.
 
@@ -31,12 +32,15 @@ around footage that is honestly just a woman training hard in a gym.
 - Chapter marks per discipline: 01 Strength, 02 Swim, 03 Core, 04 Run.
 - Slow continuous camera push/pull on the footage wrapper; scale is continuous across every cut, and holds exactly 1.0 through the swim window so the hairlines stay registered to real pixels.
 - `handle` and `closingLine` are composition variables so the outro can be re-pointed without editing HTML.
+- The closing lockup is switched off with `data-hidden` on `#outro`, at her request.
+  The markup and its timeline are intact; removing that one attribute restores the
+  slide. With it off, the corner mark runs to 23.8s so the piece still closes branded.
 
 ## Notes
 
 - **The mark is original, not the trademarked M-Dot.** The IRONMAN M-Dot belongs to
   the World Triathlon Corporation. The badge here is a custom tri-roundel — race
-  notch, swim/bike/run glyphs, the 140.6 distance — using the red/charcoal race
+  notch, swim/bike/run glyphs, the 70.3 distance — using the red/charcoal race
   palette. Swap in the official mark only if she has the rights to use it.
 - **No music bed, by choice.** Not signed in to a music provider, and the local
   engine's deps are absent — but baking in a track would also risk a copyright

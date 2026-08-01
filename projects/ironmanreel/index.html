@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-resolution="portrait" data-composition-variables='[{"id":"handle","type":"string","label":"Instagram handle","default":"@yourhandle"},{"id":"closingLine","type":"string","label":"Closing line","default":"TRAINING FOR 140.6"},{"id":"accent","type":"color","label":"Race accent","default":"#E4322B"}]'>
+<html lang="en" data-resolution="portrait" data-composition-variables='[{"id":"handle","type":"string","label":"Instagram handle","default":"@yourhandle"},{"id":"closingLine","type":"string","label":"Closing line","default":"TRAINING FOR 70.3"},{"id":"accent","type":"color","label":"Race accent","default":"#E4322B"}]'>
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1080, height=1920">
@@ -79,7 +79,7 @@
         pointer-events: none;
         background:
           linear-gradient(180deg, rgba(6, 7, 9, 0.62), rgba(6, 7, 9, 0) 22%),
-          linear-gradient(0deg, rgba(6, 7, 9, 0.68), rgba(6, 7, 9, 0) 26%);
+          linear-gradient(0deg, rgba(6, 7, 9, 0.8), rgba(6, 7, 9, 0) 38%);
       }
 
       /* ---------- Shared type ---------- */
@@ -449,11 +449,11 @@
       </div>
 
       <!-- Persistent corner mark -->
-      <div id="bug" class="clip tri" data-start="3.8" data-duration="17.1" data-track-index="5">
+      <div id="bug" class="clip tri" data-start="3.8" data-duration="20" data-track-index="5">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <circle class="ring" id="bug-ring" cx="50" cy="50" r="44" />
           <path class="notch" d="M50 1.5 L55.5 11 L44.5 11 Z" />
-          <text class="dist" x="50" y="59" font-size="26">140.6</text>
+          <text class="dist" x="50" y="59" font-size="27">70.3</text>
         </svg>
       </div>
 
@@ -461,7 +461,7 @@
       <div id="title" class="clip" data-layout-allow-overlap="" data-start="0.25" data-duration="3.15" data-track-index="6">
         <div class="textbed"></div>
         <div class="rule"></div>
-        <div class="kicker">Road to 140.6</div>
+        <div class="kicker">Road to 70.3</div>
         <div class="display">
           <span class="mask" data-layout-allow-overflow=""><span class="t1">Ironman</span></span>
           <span class="mask" data-layout-allow-overflow=""><span class="t2">Training</span></span>
@@ -521,7 +521,7 @@
       </div>
 
       <!-- Closing lockup -->
-      <div id="outro" class="clip" data-start="21.85" data-duration="2.25" data-track-index="10">
+      <div id="outro" class="clip" data-hidden data-start="21.85" data-duration="2.25" data-track-index="10">
         <div class="veil"></div>
         <div class="lock">
           <div class="glow"></div>
@@ -542,10 +542,10 @@
                   <path class="glyph" d="M73.2 34 L69.8 39.6 L73.8 42.2 L72.2 47.6 M69.8 39.6 L65.6 37.6 M73.8 42.2 L77.4 45.6" />
                 </g>
               </g>
-              <text class="dist" x="50" y="71" font-size="22">140.6</text>
+              <text class="dist" x="50" y="71" font-size="24">70.3</text>
             </svg>
           </div>
-          <div class="line" id="outro-line" data-var-text="closingLine">TRAINING FOR 140.6</div>
+          <div class="line" id="outro-line" data-var-text="closingLine">TRAINING FOR 70.3</div>
           <div class="handle" data-var-text="handle">@yourhandle</div>
         </div>
       </div>
@@ -665,7 +665,7 @@
       bugRing.style.strokeDasharray = bugLen;
       tl.fromTo("#bug", { autoAlpha: 0, scale: 0.7 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)", transformOrigin: "center center", immediateRender: false }, 3.85);
       tl.fromTo(bugRing, { strokeDashoffset: bugLen }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut", immediateRender: false }, 3.95);
-      tl.to("#bug", { autoAlpha: 0, scale: 0.86, duration: 0.4, ease: "power2.in" }, 20.5);
+      tl.to("#bug", { autoAlpha: 0, scale: 0.86, duration: 0.4, ease: "power2.in" }, 23.4);
 
       /* ---------------- Closing lockup ---------------- */
       const outroRing = document.getElementById("outro-ring");
