@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en" data-resolution="portrait" data-composition-variables='[{"id":"handle","type":"string","label":"Instagram handle","default":"@yourhandle"},{"id":"closingLine","type":"string","label":"Closing line","default":"TRAINING FOR 140.6"},{"id":"accent","type":"color","label":"Race accent","default":"#E4322B"}]'>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Anton";
+        src: url("assets/fonts/anton.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Barlow Condensed";
+        src: url("assets/fonts/barlowcond-600.woff2") format("woff2");
+        font-weight: 600;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Barlow Condensed";
+        src: url("assets/fonts/barlowcond-700.woff2") format("woff2");
+        font-weight: 700;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Archivo";
+        src: url("assets/fonts/archivo.woff2") format("woff2");
+        font-weight: 600 800;
+        font-display: block;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #08090b;
+      }
+      body {
+        font-family: "Barlow Condensed", sans-serif;
+        --ink: #08090b;
+        --paper: #f5f2ec;
+        --red: #e4322b;
+      }
+
+      /* ---------- Footage plate ---------- */
+      /* #stage clips the plate so the push-in never reveals an edge. .plate is
+         untimed on purpose: the framework owns the <video> clip, we own the camera. */
+      #stage {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        background: #000;
+      }
+      .plate {
+        position: absolute;
+        inset: 0;
+        will-change: transform;
+      }
+      .plate video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Legibility scrims — top and bottom only, so the mid-frame stays clean. */
+      .scrim {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(180deg, rgba(6, 7, 9, 0.62), rgba(6, 7, 9, 0) 22%),
+          linear-gradient(0deg, rgba(6, 7, 9, 0.68), rgba(6, 7, 9, 0) 26%);
+      }
+
+      /* ---------- Shared type ---------- */
+      .kicker {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.38em;
+        color: var(--paper);
+      }
+      .display {
+        font-family: "Anton", sans-serif;
+        text-transform: uppercase;
+        color: var(--paper);
+        line-height: 1.02;
+        letter-spacing: 0.005em;
+      }
+
+      /* A soft dark bed under a text block: the footage behind these zones is
+         bright gym light, and paper-on-highlight fails contrast without it. */
+      .textbed {
+        position: absolute;
+        left: -96px;
+        right: -96px;
+        top: -96px;
+        bottom: -96px;
+        pointer-events: none;
+        background: linear-gradient(
+          180deg,
+          rgba(6, 7, 9, 0) 0%,
+          rgba(6, 7, 9, 0.72) 20%,
+          rgba(6, 7, 9, 0.82) 50%,
+          rgba(6, 7, 9, 0.72) 80%,
+          rgba(6, 7, 9, 0) 100%
+        );
+      }
+      .textbed ~ * {
+        position: relative;
+      }
+      .num {
+        font-family: "Archivo", sans-serif;
+        font-weight: 800;
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* A masked riser: the inner span slides up out of a clipped row. */
+      .mask {
+        display: block;
+        overflow: hidden;
+      }
+      .mask > span {
+        display: block;
+        will-change: transform;
+      }
+
+      /* ---------- Title card ---------- */
+      #title {
+        position: absolute;
+        left: 76px;
+        right: 76px;
+        top: 690px;
+      }
+      #title .rule {
+        width: 132px;
+        height: 8px;
+        background: var(--red);
+        transform-origin: left center;
+        margin-bottom: 30px;
+      }
+      #title .kicker {
+        font-size: 32px;
+        margin-bottom: 44px;
+        color: rgba(245, 242, 236, 0.92);
+      }
+      #title .display {
+        font-size: 166px;
+      }
+      #title .t2 {
+        color: var(--red);
+      }
+      #title .sub {
+        margin-top: 48px;
+        font-size: 36px;
+        font-weight: 600;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: rgba(245, 242, 236, 0.78);
+      }
+
+      /* ---------- Chapter label ---------- */
+      .chapter {
+        position: absolute;
+        left: 76px;
+        top: 1298px;
+      }
+      .chapter .row {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+      .chapter .badge-n {
+        width: 74px;
+        height: 74px;
+        background: var(--red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Archivo", sans-serif;
+        font-weight: 800;
+        font-size: 38px;
+        color: #fff;
+        will-change: transform;
+      }
+      .chapter .word {
+        font-family: "Anton", sans-serif;
+        text-transform: uppercase;
+        font-size: 96px;
+        line-height: 0.9;
+        color: var(--paper);
+        text-shadow: 0 6px 34px rgba(0, 0, 0, 0.55);
+      }
+      .chapter .underline {
+        margin-top: 20px;
+        width: 470px;
+        height: 5px;
+        background: linear-gradient(90deg, var(--red), rgba(228, 50, 43, 0));
+        transform-origin: left center;
+      }
+
+      /* ---------- Swim plate hairlines ---------- */
+      /* The swim source is a 16:9 letterbox rebuilt as a 1080x606 plate at y=657.
+         These rules sit exactly on its edges, so the camera holds scale 1 there. */
+      #swimframe .hair {
+        position: absolute;
+        left: 0;
+        width: 1080px;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          rgba(228, 50, 43, 0) 0%,
+          var(--red) 22%,
+          var(--red) 78%,
+          rgba(228, 50, 43, 0) 100%
+        );
+        transform-origin: center center;
+      }
+      #swimframe .hair.top {
+        top: 655px;
+      }
+      #swimframe .hair.bot {
+        top: 1263px;
+      }
+
+      /* ---------- Mid statement ---------- */
+      #statement {
+        position: absolute;
+        left: 76px;
+        right: 76px;
+        top: 1150px;
+      }
+      #statement .display {
+        font-size: 128px;
+      }
+      #statement .dot {
+        color: #ff8478;
+      }
+
+      /* ---------- Top HUD ---------- */
+      #hud {
+        position: absolute;
+        top: 196px;
+        left: 76px;
+      }
+      #hud .inner {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 14px 28px 14px 22px;
+        border-radius: 999px;
+        background: rgba(10, 12, 15, 0.42);
+        border: 1px solid rgba(245, 242, 236, 0.18);
+      }
+      #hud .rec {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--red);
+        box-shadow: 0 0 18px rgba(228, 50, 43, 0.95);
+        will-change: transform;
+      }
+      #hud .kicker {
+        font-size: 27px;
+        letter-spacing: 0.3em;
+      }
+
+      /* ---------- Viewfinder corners ---------- */
+      .corner {
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        border: 4px solid rgba(245, 242, 236, 0.55);
+      }
+      .corner.tl {
+        top: 120px;
+        left: 56px;
+        border-right: none;
+        border-bottom: none;
+      }
+      .corner.tr {
+        top: 120px;
+        right: 56px;
+        border-left: none;
+        border-bottom: none;
+      }
+      .corner.bl {
+        bottom: 300px;
+        left: 56px;
+        border-right: none;
+        border-top: none;
+      }
+      .corner.br {
+        bottom: 300px;
+        right: 56px;
+        border-left: none;
+        border-top: none;
+      }
+
+      /* ---------- Tri badge (original mark, not the trademarked M-Dot) ---------- */
+      .tri svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .tri .ring {
+        fill: none;
+        stroke: var(--red);
+        stroke-width: 3.4;
+      }
+      .tri .notch {
+        fill: var(--red);
+      }
+      .tri .glyph {
+        fill: none;
+        stroke: var(--paper);
+        stroke-width: 2.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .tri .glyph-fill {
+        fill: var(--paper);
+      }
+      .tri .dist {
+        font-family: "Archivo", sans-serif;
+        font-weight: 800;
+        fill: var(--paper);
+        text-anchor: middle;
+      }
+
+      /* corner bug */
+      #bug {
+        position: absolute;
+        top: 182px;
+        right: 76px;
+        width: 96px;
+        height: 96px;
+      }
+
+      /* ---------- Outro ---------- */
+      #outro {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      #outro .veil {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 72% 54% at 50% 46%, rgba(8, 9, 11, 0.80), rgba(8, 9, 11, 0.95));
+      }
+      #outro .lock {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        will-change: transform;
+      }
+      #outro .glow {
+        position: absolute;
+        top: -140px;
+        left: 50%;
+        margin-left: -340px;
+        width: 680px;
+        height: 680px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(228, 50, 43, 0.26), rgba(228, 50, 43, 0) 62%);
+        pointer-events: none;
+      }
+      #outro .tri {
+        position: relative;
+        width: 340px;
+        height: 340px;
+      }
+      #outro .line {
+        position: relative;
+        margin-top: 52px;
+        font-family: "Anton", sans-serif;
+        text-transform: uppercase;
+        font-size: 82px;
+        line-height: 0.94;
+        color: var(--paper);
+        text-align: center;
+      }
+      #outro .handle {
+        position: relative;
+        margin-top: 28px;
+        font-size: 40px;
+        font-weight: 700;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: #ff8478;
+      }
+
+      /* ---------- Progress rail ---------- */
+      #rail {
+        position: absolute;
+        left: 76px;
+        top: 1656px;
+        width: 928px;
+        height: 5px;
+        background: rgba(245, 242, 236, 0.2);
+      }
+      #rail .fill {
+        position: absolute;
+        inset: 0;
+        transform-origin: left center;
+        background: linear-gradient(90deg, var(--red), #ff7a5c);
+        box-shadow: 0 0 16px rgba(228, 50, 43, 0.6);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="24.1" data-width="1080" data-height="1920">
+      <!-- Full-bleed fill lives on a child, never on the root. -->
+      <div id="stage">
+        <div class="plate" data-layout-allow-overflow="">
+          <video id="a-roll" class="clip" src="base.mp4" muted playsinline data-start="0" data-duration="24.1" data-track-index="0"></video>
+        </div>
+      </div>
+      <div class="scrim"></div>
+
+      <!-- Viewfinder corners -->
+      <div id="corners" class="clip" style="position: absolute; inset: 0; pointer-events: none" data-start="0.5" data-duration="20" data-track-index="3">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+      </div>
+
+      <!-- Top-left status chip -->
+      <div id="hud" class="clip" data-start="0.55" data-duration="20.35" data-track-index="4">
+        <div class="inner">
+          <span class="rec"></span>
+          <span class="kicker">Training Log</span>
+        </div>
+      </div>
+
+      <!-- Persistent corner mark -->
+      <div id="bug" class="clip tri" data-start="3.8" data-duration="17.1" data-track-index="5">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle class="ring" id="bug-ring" cx="50" cy="50" r="44" />
+          <path class="notch" d="M50 1.5 L55.5 11 L44.5 11 Z" />
+          <text class="dist" x="50" y="59" font-size="26">140.6</text>
+        </svg>
+      </div>
+
+      <!-- Title card -->
+      <div id="title" class="clip" data-layout-allow-overlap="" data-start="0.25" data-duration="3.15" data-track-index="6">
+        <div class="textbed"></div>
+        <div class="rule"></div>
+        <div class="kicker">Road to 140.6</div>
+        <div class="display">
+          <span class="mask" data-layout-allow-overflow=""><span class="t1">Ironman</span></span>
+          <span class="mask" data-layout-allow-overflow=""><span class="t2">Training</span></span>
+        </div>
+        <div class="sub">Swim · Strength · Run</div>
+      </div>
+
+      <!-- Chapter 01 -->
+      <div id="ch1" class="clip chapter" data-layout-allow-occlusion="" data-start="3.9" data-duration="3.7" data-track-index="7">
+        <div class="row">
+          <span class="badge-n">01</span>
+          <span class="mask" data-layout-allow-overflow=""><span class="word">Strength</span></span>
+        </div>
+        <div class="underline"></div>
+      </div>
+
+      <!-- Chapter 02 -->
+      <div id="ch2" class="clip chapter" data-layout-allow-occlusion="" data-start="9.1" data-duration="1.75" data-track-index="11">
+        <div class="row">
+          <span class="badge-n">02</span>
+          <span class="mask" data-layout-allow-overflow=""><span class="word">Swim</span></span>
+        </div>
+        <div class="underline"></div>
+      </div>
+
+      <!-- Chapter 03 -->
+      <div id="ch3" class="clip chapter" data-layout-allow-occlusion="" data-start="11.8" data-duration="3.6" data-track-index="12">
+        <div class="row">
+          <span class="badge-n">03</span>
+          <span class="mask" data-layout-allow-overflow=""><span class="word">Core</span></span>
+        </div>
+        <div class="underline"></div>
+      </div>
+
+      <!-- Chapter 04 -->
+      <div id="ch4" class="clip chapter" data-layout-allow-occlusion="" data-start="19.6" data-duration="1.55" data-track-index="13">
+        <div class="row">
+          <span class="badge-n">04</span>
+          <span class="mask" data-layout-allow-overflow=""><span class="word">Run</span></span>
+        </div>
+        <div class="underline"></div>
+      </div>
+
+      <!-- Hairlines that turn the swim letterbox into a designed plate -->
+      <div id="swimframe" class="clip" style="position: absolute; inset: 0; pointer-events: none" data-start="8.98" data-duration="1.92" data-track-index="8">
+        <div class="hair top"></div>
+        <div class="hair bot"></div>
+      </div>
+
+      <!-- Mid statement -->
+      <div id="statement" class="clip" data-layout-allow-overlap="" data-start="15.9" data-duration="2.7" data-track-index="9">
+        <div class="textbed"></div>
+        <div class="display">
+          <span class="mask" data-layout-allow-overflow=""><span>Show up<span class="dot">.</span></span></span>
+          <span class="mask" data-layout-allow-overflow=""><span>Repeat<span class="dot">.</span></span></span>
+        </div>
+      </div>
+
+      <!-- Closing lockup -->
+      <div id="outro" class="clip" data-start="21.85" data-duration="2.25" data-track-index="10">
+        <div class="veil"></div>
+        <div class="lock">
+          <div class="glow"></div>
+          <div class="tri">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle class="ring" id="outro-ring" cx="50" cy="50" r="44" />
+              <path class="notch" d="M50 1.5 L55.5 11 L44.5 11 Z" />
+              <!-- swim / bike / run, the three disciplines -->
+              <g class="tri-glyphs">
+                <path class="glyph" d="M20 35.5 q4.5 -4 9 0 t9 0 M20 41.5 q4.5 -4 9 0 t9 0" />
+                <g>
+                  <circle class="glyph" cx="44" cy="41" r="4.4" />
+                  <circle class="glyph" cx="56" cy="41" r="4.4" />
+                  <path class="glyph" d="M44 41 L49.5 33 L56 41 M49.5 33 L52.5 41 M47 33 h5" />
+                </g>
+                <g>
+                  <circle class="glyph-fill" cx="73.6" cy="30.6" r="2.4" />
+                  <path class="glyph" d="M73.2 34 L69.8 39.6 L73.8 42.2 L72.2 47.6 M69.8 39.6 L65.6 37.6 M73.8 42.2 L77.4 45.6" />
+                </g>
+              </g>
+              <text class="dist" x="50" y="71" font-size="22">140.6</text>
+            </svg>
+          </div>
+          <div class="line" id="outro-line" data-var-text="closingLine">TRAINING FOR 140.6</div>
+          <div class="handle" data-var-text="handle">@yourhandle</div>
+        </div>
+      </div>
+
+      <!-- Session progress rail (always on) -->
+      <div id="rail"><div class="fill"></div></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      const DUR = 24.1;
+
+      /* ------------------------------------------------------------------
+         Camera — a slow push/pull on the untimed footage wrapper.
+         Each leg starts where the previous ended, so scale is continuous
+         across every cut and the dissolves never jump. The swim window
+         (8.92-10.94) holds exactly 1 because #swimframe's hairlines are
+         pinned to the plate's real pixel edges.
+      ------------------------------------------------------------------ */
+      const cam = [
+        [0.0, 8.52, 1.0, 1.04],
+        [8.52, 8.92, 1.04, 1.0],
+        [10.94, 18.89, 1.0, 1.045],
+        [18.89, 21.24, 1.045, 1.015],
+        [21.24, DUR, 1.015, 1.05],
+      ];
+      cam.forEach(([from, to, a, b]) => {
+        tl.fromTo(
+          ".plate",
+          { scale: a },
+          { scale: b, duration: to - from, ease: "none", immediateRender: false },
+          from
+        );
+      });
+
+      /* ---------------- Title card ---------------- */
+      tl.fromTo("#title .rule", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power3.out", immediateRender: false }, 0.3);
+      tl.fromTo("#title .kicker", { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, 0.42);
+      tl.fromTo(
+        "#title .display .mask > span",
+        { yPercent: 108 },
+        { yPercent: 0, duration: 0.72, ease: "power3.out", stagger: 0.1, immediateRender: false },
+        0.5
+      );
+      tl.fromTo("#title .sub", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, 1.02);
+      tl.to("#title", { autoAlpha: 0, y: -34, duration: 0.42, ease: "power2.in" }, 2.98);
+
+      /* ---------------- Chapter labels ---------------- */
+      function chapter(id, start, dur) {
+        tl.fromTo(
+          "#" + id + " .badge-n",
+          { autoAlpha: 0, scale: 0.55 },
+          { autoAlpha: 1, scale: 1, duration: 0.42, ease: "back.out(2.2)", transformOrigin: "center center", immediateRender: false },
+          start
+        );
+        tl.fromTo(
+          "#" + id + " .word",
+          { yPercent: 110 },
+          { yPercent: 0, duration: 0.6, ease: "power3.out", immediateRender: false },
+          start + 0.08
+        );
+        tl.fromTo(
+          "#" + id + " .underline",
+          { scaleX: 0 },
+          { scaleX: 1, duration: 0.62, ease: "power3.out", immediateRender: false },
+          start + 0.22
+        );
+        tl.to("#" + id, { autoAlpha: 0, x: -26, duration: 0.36, ease: "power2.in" }, start + dur - 0.36);
+      }
+      chapter("ch1", 3.9, 3.7);
+      chapter("ch2", 9.1, 1.75);
+      chapter("ch3", 11.8, 3.6);
+      chapter("ch4", 19.6, 1.55);
+
+      /* ---------------- Swim plate hairlines ---------------- */
+      tl.fromTo(
+        "#swimframe .hair",
+        { scaleX: 0, autoAlpha: 0 },
+        { scaleX: 1, autoAlpha: 1, duration: 0.5, ease: "power3.out", stagger: 0.07, immediateRender: false },
+        9.02
+      );
+      tl.to("#swimframe .hair", { autoAlpha: 0, duration: 0.3, ease: "power2.in" }, 10.58);
+
+      /* ---------------- Mid statement ---------------- */
+      tl.fromTo(
+        "#statement .mask > span",
+        { yPercent: 110 },
+        { yPercent: 0, duration: 0.66, ease: "power3.out", stagger: 0.12, immediateRender: false },
+        16.0
+      );
+      tl.to("#statement", { autoAlpha: 0, y: -28, duration: 0.4, ease: "power2.in" }, 18.18);
+
+      /* ---------------- Top HUD ---------------- */
+      tl.fromTo("#hud .inner", { autoAlpha: 0, x: -28 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, 0.6);
+      tl.fromTo(
+        "#hud .rec",
+        { scale: 0.72, autoAlpha: 0.65 },
+        { scale: 1.12, autoAlpha: 1, duration: 0.72, ease: "sine.inOut", repeat: 13, yoyo: true, transformOrigin: "center center", immediateRender: false },
+        0.85
+      );
+      tl.to("#hud .inner", { autoAlpha: 0, x: -22, duration: 0.4, ease: "power2.in" }, 20.5);
+
+      /* ---------------- Viewfinder corners ---------------- */
+      tl.fromTo(
+        ".corner",
+        { autoAlpha: 0, scale: 0.5 },
+        { autoAlpha: 0.55, scale: 1, duration: 0.6, ease: "power3.out", stagger: 0.07, transformOrigin: "center center", immediateRender: false },
+        0.6
+      );
+      tl.to(".corner", { autoAlpha: 0, duration: 0.4, ease: "power2.in" }, 20.1);
+
+      /* ---------------- Corner mark ---------------- */
+      const bugRing = document.getElementById("bug-ring");
+      const bugLen = 2 * Math.PI * 44;
+      bugRing.style.strokeDasharray = bugLen;
+      tl.fromTo("#bug", { autoAlpha: 0, scale: 0.7 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: "back.out(1.8)", transformOrigin: "center center", immediateRender: false }, 3.85);
+      tl.fromTo(bugRing, { strokeDashoffset: bugLen }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut", immediateRender: false }, 3.95);
+      tl.to("#bug", { autoAlpha: 0, scale: 0.86, duration: 0.4, ease: "power2.in" }, 20.5);
+
+      /* ---------------- Closing lockup ---------------- */
+      const outroRing = document.getElementById("outro-ring");
+      const outroLen = 2 * Math.PI * 44;
+      outroRing.style.strokeDasharray = outroLen;
+
+      tl.fromTo("#outro .veil", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, ease: "power2.out", immediateRender: false }, 21.9);
+      tl.fromTo("#outro .lock", { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.7, ease: "power3.out", transformOrigin: "center center", immediateRender: false }, 22.0);
+      tl.fromTo(outroRing, { strokeDashoffset: outroLen }, { strokeDashoffset: 0, duration: 0.95, ease: "power2.inOut", immediateRender: false }, 22.1);
+      tl.fromTo(
+        "#outro .tri-glyphs > *",
+        { autoAlpha: 0, y: 5 },
+        { autoAlpha: 1, y: 0, duration: 0.42, ease: "power2.out", stagger: 0.1, immediateRender: false },
+        22.42
+      );
+      tl.fromTo("#outro .dist", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, ease: "power2.out", immediateRender: false }, 22.72);
+      tl.fromTo("#outro .glow", { autoAlpha: 0, scale: 0.7 }, { autoAlpha: 1, scale: 1, duration: 1.0, ease: "power2.out", transformOrigin: "center center", immediateRender: false }, 22.1);
+      tl.fromTo("#outro .line", { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.55, ease: "power3.out", immediateRender: false }, 22.6);
+      tl.fromTo("#outro .handle", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, 22.82);
+
+      /* ---------------- Progress rail ---------------- */
+      tl.fromTo("#rail .fill", { scaleX: 0 }, { scaleX: 1, duration: DUR, ease: "none", immediateRender: false }, 0);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
