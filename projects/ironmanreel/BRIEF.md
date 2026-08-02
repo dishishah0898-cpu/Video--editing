@@ -29,10 +29,11 @@ around footage that is honestly just a woman training hard in a gym.
 - Six source shots re-cut and cross-dissolved: arrival, barbell squats, swim, medicine-ball lunges, treadmill, cooldown.
 - HDR (HLG / bt2020, Dolby Vision profile 8) tone-mapped to Rec.709 in ffmpeg — the realtime treatment path is SDR-only and must not process HLG.
 - The swim source is a 16:9 letterbox inside the vertical frame. Rebuilt as a sharp 1080x606 plate on a designed charcoal panel, with red hairlines pinned to the plate edges so it reads as intentional.
-- One line of copy only — "1% BETTER / EVERY DAY", the 1% in race red, over the
-  squat shot (1.8-5.8s); then her footage runs uninterrupted. The per-discipline
-  chapter marks and the mid statement are `data-hidden`, not deleted.
-  Set as "every day" (two words, the adverb) rather than the one-word adjective.
+- One line of copy only — "TRIATHLON / MODE: ON >>>>" with ON and four chevrons in
+  race red, over the squat shot (1.8-5.8s); then her footage runs uninterrupted.
+  The per-discipline chapter marks and the mid statement are `data-hidden`, not
+  deleted. Chevrons are CSS-drawn and rotated in CSS, so the timeline animates
+  only their opacity and never fights the static transform.
 - Slow continuous camera push/pull on the footage wrapper; scale is continuous across every cut, and holds exactly 1.0 through the swim window so the hairlines stay registered to real pixels.
 - `handle` and `closingLine` are composition variables so the outro can be re-pointed without editing HTML.
 - The closing lockup is switched off with `data-hidden` on `#outro`, at her request.

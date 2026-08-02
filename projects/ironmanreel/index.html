@@ -160,6 +160,21 @@
       #title .t2 {
         color: var(--red);
       }
+      #title .chevs {
+        display: inline-block;
+        margin-left: 20px;
+        white-space: nowrap;
+      }
+      #title .chevs i {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin-left: 7px;
+        border-top: 9px solid var(--red);
+        border-right: 9px solid var(--red);
+        transform: rotate(45deg);
+        vertical-align: 20px;
+      }
       #title .sub {
         margin-top: 32px;
         font-size: 25px;
@@ -462,8 +477,8 @@
         <div class="textbed"></div>
         <div class="rule"></div>
         <div class="display">
-          <span class="mask" data-layout-allow-overflow=""><span><span class="t2">1%</span> Better</span></span>
-          <span class="mask" data-layout-allow-overflow=""><span>Every day</span></span>
+          <span class="mask" data-layout-allow-overflow=""><span>Triathlon</span></span>
+          <span class="mask" data-layout-allow-overflow=""><span>Mode: <span class="t2">On</span><span class="chevs"><i></i><i></i><i></i><i></i></span></span></span>
         </div>
       </div>
 
@@ -588,6 +603,12 @@
         { yPercent: 108 },
         { yPercent: 0, duration: 0.7, ease: "power3.out", stagger: 0.1, immediateRender: false },
         1.98
+      );
+      tl.fromTo(
+        "#title .chevs i",
+        { autoAlpha: 0 },
+        { autoAlpha: 1, duration: 0.26, ease: "power2.out", stagger: 0.09, immediateRender: false },
+        2.62
       );
       tl.to("#title", { autoAlpha: 0, y: -30, duration: 0.42, ease: "power2.in" }, 5.36);
 
