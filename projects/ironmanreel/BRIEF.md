@@ -35,6 +35,10 @@ around footage that is honestly just a woman training hard in a gym.
 - The closing lockup is switched off with `data-hidden` on `#outro`, at her request.
   The markup and its timeline are intact; removing that one attribute restores the
   slide. With it off, the corner mark runs to 23.8s so the piece still closes branded.
+- Graphics dialled back on request: the viewfinder brackets and the status chip are
+  off (`data-hidden` again), and everything that remains is roughly a third smaller
+  — title 166 to 108px, chapter words 96 to 62px, corner mark 96 to 66px, rails
+  5 to 3px. What is left is title, chapter marks, one statement, mark, rail.
 
 ## Notes
 
