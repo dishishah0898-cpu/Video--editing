@@ -140,7 +140,7 @@
         position: absolute;
         left: 76px;
         right: 76px;
-        top: 800px;
+        top: 860px;
       }
       #title .rule {
         width: 92px;
@@ -155,7 +155,7 @@
         color: rgba(245, 242, 236, 0.92);
       }
       #title .display {
-        font-size: 108px;
+        font-size: 96px;
       }
       #title .t2 {
         color: var(--red);
@@ -458,19 +458,18 @@
       </div>
 
       <!-- Title card -->
-      <div id="title" class="clip" data-layout-allow-overlap="" data-start="0.25" data-duration="3.15" data-track-index="6">
+      <div id="title" class="clip" data-layout-allow-overlap="" data-start="1.8" data-duration="4" data-track-index="6">
         <div class="textbed"></div>
         <div class="rule"></div>
-        <div class="kicker">Road to 70.3</div>
         <div class="display">
-          <span class="mask" data-layout-allow-overflow=""><span class="t1">Ironman</span></span>
-          <span class="mask" data-layout-allow-overflow=""><span class="t2">Training</span></span>
+          <span class="mask" data-layout-allow-overflow=""><span>How's your</span></span>
+          <span class="mask" data-layout-allow-overflow=""><span>Ironman</span></span>
+          <span class="mask" data-layout-allow-overflow=""><span class="t2">Training?</span></span>
         </div>
-        <div class="sub">Swim · Strength · Run</div>
       </div>
 
       <!-- Chapter 01 -->
-      <div id="ch1" class="clip chapter" data-layout-allow-occlusion="" data-start="3.9" data-duration="3.7" data-track-index="7">
+      <div id="ch1" class="clip chapter" data-hidden data-layout-allow-occlusion="" data-start="3.9" data-duration="3.7" data-track-index="7">
         <div class="row">
           <span class="badge-n">01</span>
           <span class="mask" data-layout-allow-overflow=""><span class="word">Strength</span></span>
@@ -479,7 +478,7 @@
       </div>
 
       <!-- Chapter 02 -->
-      <div id="ch2" class="clip chapter" data-layout-allow-occlusion="" data-start="9.1" data-duration="1.75" data-track-index="11">
+      <div id="ch2" class="clip chapter" data-hidden data-layout-allow-occlusion="" data-start="9.1" data-duration="1.75" data-track-index="11">
         <div class="row">
           <span class="badge-n">02</span>
           <span class="mask" data-layout-allow-overflow=""><span class="word">Swim</span></span>
@@ -488,7 +487,7 @@
       </div>
 
       <!-- Chapter 03 -->
-      <div id="ch3" class="clip chapter" data-layout-allow-occlusion="" data-start="11.8" data-duration="3.6" data-track-index="12">
+      <div id="ch3" class="clip chapter" data-hidden data-layout-allow-occlusion="" data-start="11.8" data-duration="3.6" data-track-index="12">
         <div class="row">
           <span class="badge-n">03</span>
           <span class="mask" data-layout-allow-overflow=""><span class="word">Core</span></span>
@@ -497,7 +496,7 @@
       </div>
 
       <!-- Chapter 04 -->
-      <div id="ch4" class="clip chapter" data-layout-allow-occlusion="" data-start="19.6" data-duration="1.55" data-track-index="13">
+      <div id="ch4" class="clip chapter" data-hidden data-layout-allow-occlusion="" data-start="19.6" data-duration="1.55" data-track-index="13">
         <div class="row">
           <span class="badge-n">04</span>
           <span class="mask" data-layout-allow-overflow=""><span class="word">Run</span></span>
@@ -512,7 +511,7 @@
       </div>
 
       <!-- Mid statement -->
-      <div id="statement" class="clip" data-layout-allow-overlap="" data-start="15.9" data-duration="2.7" data-track-index="9">
+      <div id="statement" class="clip" data-hidden data-layout-allow-overlap="" data-start="15.9" data-duration="2.7" data-track-index="9">
         <div class="textbed"></div>
         <div class="display">
           <span class="mask" data-layout-allow-overflow=""><span>Show up<span class="dot">.</span></span></span>
@@ -584,16 +583,14 @@
       });
 
       /* ---------------- Title card ---------------- */
-      tl.fromTo("#title .rule", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power3.out", immediateRender: false }, 0.3);
-      tl.fromTo("#title .kicker", { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, 0.42);
+      tl.fromTo("#title .rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out", immediateRender: false }, 1.85);
       tl.fromTo(
         "#title .display .mask > span",
         { yPercent: 108 },
-        { yPercent: 0, duration: 0.72, ease: "power3.out", stagger: 0.1, immediateRender: false },
-        0.5
+        { yPercent: 0, duration: 0.7, ease: "power3.out", stagger: 0.1, immediateRender: false },
+        1.98
       );
-      tl.fromTo("#title .sub", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, 1.02);
-      tl.to("#title", { autoAlpha: 0, y: -34, duration: 0.42, ease: "power2.in" }, 2.98);
+      tl.to("#title", { autoAlpha: 0, y: -30, duration: 0.42, ease: "power2.in" }, 5.36);
 
       /* ---------------- Chapter labels ---------------- */
       function chapter(id, start, dur) {
